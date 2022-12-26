@@ -47,7 +47,7 @@
                 clearTimeout(this.scrollTimeout);
                 clearTimeout(this.touchEndTimeout);
                 this.scrollTimeout = setTimeout(() => {
-                    console.log("Scrolling has stopped.");
+                    // console.log("Scrolling has stopped.");
                     this.handleScroll(e)
                 }, 100);
             });
@@ -57,7 +57,7 @@
             let options = {
                 root: this.$el, // relative to document viewport 
                 rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-                threshold: 0.99 // visible amount of item shown in relation to root
+                threshold: 0.5 // visible amount of item shown in relation to root
             };
 
             this.observer = new IntersectionObserver(this.intersectioHandler, options);
@@ -109,12 +109,10 @@
                 })
                 
                 // Determine the closest edge
-                console.log("currentworkspace:", this.currentWorkspace)
+                // console.log("currentworkspace:", this.currentWorkspace)
 
                 let closestCorner = this.$el.scrollTop / this.windowHeight
                 let scrollTo = (Math.round(closestCorner) * (this.windowHeight + (40)))
-
-                console.log(scrollTo)
 
                 this.$el.scrollTo({
                     top: scrollTo,
