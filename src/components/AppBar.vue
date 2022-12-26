@@ -71,7 +71,7 @@ export default {
             .menu-element {
                 display: flex;
                 padding: .5rem .75rem;
-                background: rgba(255,255,255,.15);
+                background: rgba(255,255,255,.8);
                 border-radius: 12px;
                 .menu-entry {
                     &:not(:first-child) {

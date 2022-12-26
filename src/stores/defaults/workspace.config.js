@@ -63,7 +63,7 @@ export default [
         workspace: {
             title: "FHP-Workspace",
             activeWindow: '2222-2222-2222',
-            members: [{name: 'Marvin',image: ''}, {name: 'Gustav',image: ''}],
+            members: [{name: 'Martin',image: ''}, {name: 'Gustav',image: ''}],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],

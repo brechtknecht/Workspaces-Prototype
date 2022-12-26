@@ -1,6 +1,6 @@
 <template>
     <div class="person-bar">
-        <transition-group name="list" tag="p">
+        <transition-group name="list" tag="ul">
             <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
                 <Person :person="member"/>
             </div>
@@ -29,7 +29,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 
     .person-bar {
         position: fixed;
@@ -47,7 +52,7 @@ export default {
     .list-enter-from,
     .list-leave-to {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateX(10rem);
     }
 
     /* ensure leaving items are taken out of layout flow so that moving
