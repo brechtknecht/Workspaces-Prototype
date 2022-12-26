@@ -21,7 +21,7 @@
                 preventScrollRead: false,
                 scrollPosition: 0,
                 windowHeight: 0,
-                triggerTime: 1500,
+                triggerTime: 1000,
                 observer: null,
                 scrollDown: null,
                 intervals: [],
@@ -48,7 +48,7 @@
             let options = {
                 root: this.$el, // relative to document viewport 
                 rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-                threshold: 1.0 // visible amount of item shown in relation to root
+                threshold: 0.7 // visible amount of item shown in relation to root
             };
 
             this.observer = new IntersectionObserver(this.intersectioHandler, options);
@@ -107,8 +107,11 @@
 
                 setTimeout(() => {
                     // Determine the closest edge
-                    let closestCorner = this.scrollPosition / this.windowHeight
-                    let scrollTo = Math.round(closestCorner) * this.windowHeight
+                    console.log("currentworkspace:", this.currentWorkspace)
+
+
+                    let closestCorner = this.scrollPosition / (this.windowHeight)
+                    let scrollTo = Math.round(closestCorner) * this.windowHeight + (40 * this.currentWorkspace)
 
                     // Scroll to Edge
                     this.$el.scrollTo({
@@ -151,6 +154,8 @@
             scroll-snap-align: start;
             background-size: cover;
             display: none;
+
+            margin-bottom: 40px;
 
             &.active {
                 display: block;
