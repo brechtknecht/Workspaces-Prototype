@@ -21,7 +21,7 @@
         </div>
         <div class="right">
             <div class="menu-element">
-                <span>Workspace: {{ count }}</span>
+                <span>Workspace: {{ workspace.currentInt }}</span>
             </div>
             <div class="menu-element">
                 <span>Wifi</span>
@@ -39,7 +39,7 @@ import { mapState } from 'vuex'
 export default {
     computed:  {
         ...mapState([
-            'count'
+            'workspace'
         ])
     }
 }

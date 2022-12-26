@@ -1,18 +1,13 @@
 <template>
     <div class="workspaces" @wheel="handleWheel">
-        <div class="workspace active" data-a="0">
-            <Workspace title="Workspace 1" />
-        </div>
-        <div class="workspace active" data-a="1">
-            <Workspace title="Workspace 2" />
-        </div>
-        <div class="workspace active" data-a="2">
-            <Workspace title="Workspace 3" />
+        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace active" :data-a="index">
+            <Workspace :title="workspace.title" />
         </div>
     </div>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import Workspace from './Workspace.vue'
 
     export default {
@@ -32,6 +27,12 @@
         },
         components : {
             Workspace
+        },
+
+        computed: {
+            ...mapState([
+                'workspaces'
+            ])
         },
         mounted() {
             this.$el.addEventListener('scroll', this.handleScroll);
