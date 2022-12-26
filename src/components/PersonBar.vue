@@ -1,8 +1,8 @@
 <template>
     <div class="person-bar">
         <transition-group name="list" tag="p">
-            <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member" class="list-complete-item">
-                <h4>{{ member }}</h4>
+            <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
+                <Person :person="member"/>
             </div>
         </transition-group>
     </div>
@@ -11,7 +11,12 @@
 <script>
 import { mapState } from 'vuex' 
 
+import Person from './base/Person.vue'
+
 export default {
+    components: {
+        Person
+    },
     computed:  {
         ...mapState([
             'workspace',
