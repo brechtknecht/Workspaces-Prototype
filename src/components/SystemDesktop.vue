@@ -1,7 +1,7 @@
 <template>
     <div class="workspaces" @wheel="handleWheel">
         <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace active" :data-a="index">
-            <Workspace :title="workspace.title" />
+            <Workspace :workspace="workspace" />
         </div>
     </div>
 </template>

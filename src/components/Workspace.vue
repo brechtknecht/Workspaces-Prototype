@@ -1,6 +1,6 @@
 <template>
   <div class="space">
-    <span>{{ title }}</span>
+    <span>{{ workspace.title }}</span>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     }
   },
   props: {
-    title: String
+    workspace: Object
   }
 }
 

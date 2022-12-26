@@ -8,6 +8,9 @@ import WorkspaceDefaults from './defaults/workspace.config'
 const store = createStore({
   state () {
     return {
+      user: {
+        name: 'Felix'
+      },
       workspace: {
         currentInt: 0
       },
