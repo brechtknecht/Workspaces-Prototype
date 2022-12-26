@@ -15,8 +15,8 @@ const store = createStore({
     }
   },
   mutations: {
-    increment (state) {
-      state.count++
+    setCurrentWorkspace (state, payload) {
+      state.workspace.currentInt = payload
     }
   }
 })

@@ -8,12 +8,14 @@
 
 <script>
     import { mapState } from 'vuex';
+
+    import { vElementVisibility } from '@vueuse/components'
+
     import Workspace from './Workspace.vue'
 
     export default {
         data() {
             return {
-                numberOfProjects: 3,
                 lastCrate: 0,
                 nextCrate: 1,
                 preventScrollRead: false,
@@ -22,7 +24,8 @@
                 triggerTime: 1500,
                 observer: null,
                 scrollDown: null,
-                intervals: []
+                intervals: [],
+                currentWorkspace: 0
             }
         },
         components : {
@@ -32,7 +35,10 @@
         computed: {
             ...mapState([
                 'workspaces'
-            ])
+            ]),
+            numberOfWorkspaces: function () {
+                return this.workspaces.length
+            }
         },
         mounted() {
             this.$el.addEventListener('scroll', this.handleScroll);
@@ -57,16 +63,19 @@
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
                 let intersectionIndex = entries.target.attributes["data-a"].value
-                this.lastCrate = parseInt(intersectionIndex)              
+                this.currentWorkspace = intersectionIndex
+                this.lastCrate = parseInt(intersectionIndex)
+
+                this.$store.commit('setCurrentWorkspace', this.currentWorkspace)
             },
             handleWheel(event) {
                 if (event.deltaY > 0) {
                     this.scrollDown = true
-                    this.nextCrate = this.mod(parseInt(this.lastCrate) + 1, this.numberOfProjects)
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) + 1, this.numberOfWorkspaces)
                 }
                 if (event.deltaY < 0) {
                     this.scrollDown = false
-                    this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfProjects)
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfWorkspaces)
                 }
 
                this.handleAnimation()
@@ -76,7 +85,7 @@
                 this.scrollPosition = event.target.scrollTop;
                 this.windowHeight = window.innerHeight
 
-                for(let i = 0; i < this.numberOfProjects; i++) {
+                for(let i = 0; i < this.numberOfWorkspaces; i++) {
                     this.intervals[i] = {
                         pixel: i * this.windowHeight,
                         id: i
@@ -95,10 +104,6 @@
                 }
 
                 this.preventScrollRead = true
-
-
-                
-
 
                 setTimeout(() => {
                     // Determine the closest edge
@@ -143,9 +148,8 @@
         .workspace {
             width: 100%;
             height: 100vh;
-            // scroll-snap-align: start;
+            scroll-snap-align: start;
             background-size: cover;
-            border: 2px red dashed;
             display: none;
 
             &.active {
