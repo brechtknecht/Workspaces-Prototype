@@ -1,5 +1,5 @@
 <template>
-    <div class="workspaces" @wheel="handleWheel">
+    <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
         <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace active" :data-a="index">
             <Workspace :workspace="workspace" />
         </div>
@@ -27,7 +27,10 @@
                 intervals: [],
                 currentWorkspace: 0,
                 scrollTimeout: null,
-                touchEndTimeout: null
+                touchEndTimeout: null,
+                
+
+                isInOverview : true
             }
         },
         components : {
@@ -36,7 +39,8 @@
 
         computed: {
             ...mapState([
-                'workspaces'
+                'workspaces',
+                'uiState'
             ]),
             numberOfWorkspaces: function () {
                 return this.workspaces.length
@@ -138,15 +142,45 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .overview {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        transform: scale(.4);
+        overflow: initial !important;
+        transition: .25s ease-out;
+        border-radius: 12px;
+
+        background: transparent !important;
+
+        .workspace {
+            background: transparent;
+        }
+
+        .workspace:first-child {
+            .space {
+                border-top-left-radius: 40px;
+                border-top-right-radius: 40px;
+            }
+        }
+
+        .workspace:last-child {
+            .space {
+                border-bottom-left-radius: 40px;
+                border-bottom-right-radius: 40px;
+            }
+        }
+    }
     .workspaces {
         overflow-y: scroll;
         overflow-x: hidden;
         scroll-behavior: smooth;
         height: 100vh;
-
+        transition: .25s ease-out;
+        
         display: flex;
         flex-direction: column;
-
 
         background: #000000;
         // scroll-snap-stop: normal;

@@ -13,6 +13,10 @@
 <style scoped>
 
 body {
+  body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
   background: #000;
   width: 100%;
   height: 100vh;

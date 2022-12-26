@@ -14,12 +14,18 @@ const store = createStore({
       workspace: {
         currentInt: 0
       },
-      workspaces: WorkspaceDefaults
+      workspaces: WorkspaceDefaults,
+      uiState : {
+        isInOverview: false
+      }
     }
   },
   mutations: {
     setCurrentWorkspace (state, payload) {
       state.workspace.currentInt = payload
+    },
+    toggleWorkspacesOverview(state) {
+      state.uiState.isInOverview = !state.uiState.isInOverview
     }
   }
 })

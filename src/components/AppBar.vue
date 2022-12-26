@@ -20,11 +20,13 @@
             </div>
         </div>
         <div class="right">
-            <div class="menu-element">
+            <div class="menu-element" @click="toggleOverview">
                 <span>{{ workspaces[workspace.currentInt].workspace.title }}</span>
             </div>
-            <div class="menu-element">
-                <span>Wifi</span>
+            <div class="menu-element sf-symbols">
+                <p class="p1">􀪷</p>
+                <p class="p1">􀙇</p>
+                <p class="p1">􀉤</p>
             </div>
             <div class="menu-element">
                 <span>Battery</span>
@@ -42,6 +44,11 @@ export default {
             'workspace',
             'workspaces'
         ])
+    },
+    methods: {
+        toggleOverview () {
+            this.$store.commit('toggleWorkspacesOverview')
+        }
     }
 }
 </script>
@@ -73,6 +80,11 @@ export default {
                 padding: .5rem .75rem;
                 background: rgba(255,255,255,.8);
                 border-radius: 12px;
+                &.sf-symbols {
+                    p:not(:last-child) {
+                        margin-right: .5rem;
+                    }
+                }
                 .menu-entry {
                     &:not(:first-child) {
                         margin-left: 1rem;
