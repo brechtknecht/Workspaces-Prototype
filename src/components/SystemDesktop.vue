@@ -57,7 +57,7 @@
             let options = {
                 root: this.$el, // relative to document viewport 
                 rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-                threshold: 0.9 // visible amount of item shown in relation to root
+                threshold: 0.99 // visible amount of item shown in relation to root
             };
 
             this.observer = new IntersectionObserver(this.intersectioHandler, options);
@@ -111,10 +111,10 @@
                 // Determine the closest edge
                 console.log("currentworkspace:", this.currentWorkspace)
 
-                let closestCorner = this.$el.scrollTop / (this.windowHeight)
-                let scrollTo = (Math.round(closestCorner) * this.windowHeight) + (40 * this.currentWorkspace)
+                let closestCorner = this.$el.scrollTop / this.windowHeight
+                let scrollTo = (Math.round(closestCorner) * (this.windowHeight + (40)))
 
-                console.log(this.$el.scrollTop)
+                console.log(scrollTo)
 
                 this.$el.scrollTo({
                     top: scrollTo,
@@ -145,6 +145,9 @@
         overflow-x: hidden;
         scroll-behavior: smooth;
         height: 100vh;
+
+        display: flex;
+        flex-direction: column;
 
 
         background: #000000;
