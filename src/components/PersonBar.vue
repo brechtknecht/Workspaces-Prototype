@@ -1,7 +1,7 @@
 <template>
     <div class="person-bar">
-        <transition-group name="list-complete" tag="p">
-            <div v-for="member in currentWorkspace.workspace.members" v-bind:key="member" class="person list-complete-item">
+        <transition-group name="list" tag="p">
+            <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member" class="list-complete-item">
                 <h4>{{ member }}</h4>
             </div>
         </transition-group>
@@ -33,18 +33,23 @@ export default {
         transform: translateY(-50%)
     }
 
-    .list-complete-item {
-        transition: all 1s;
-        display: inline-block;
-        margin-right: 10px;
+    .list-move, /* apply transition to moving elements */
+    .list-enter-active,
+    .list-leave-active {
+        transition: all 0.5s ease;
     }
-    .list-complete-enter, .list-complete-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */ {
+
+    .list-enter-from,
+    .list-leave-to {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateX(30px);
     }
-    .list-complete-leave-active {
+
+    /* ensure leaving items are taken out of layout flow so that moving
+    animations can be calculated correctly. */
+    .list-leave-active {
         position: absolute;
+        transform: translateY(0);
     }
 
 </style>
