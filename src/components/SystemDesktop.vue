@@ -1,0 +1,179 @@
+<template>
+    <div class="workspaces" @wheel="handleWheel">
+        <div class="workspace active" data-a="0">
+            <Workspace title="Workspace 1" />
+        </div>
+        <div class="workspace active" data-a="1">
+            <Workspace title="Workspace 2" />
+        </div>
+        <div class="workspace active" data-a="2">
+            <Workspace title="Workspace 3" />
+        </div>
+    </div>
+</template>
+
+<script>
+    import Workspace from './Workspace.vue'
+
+    export default {
+        data() {
+            return {
+                numberOfProjects: 3,
+                lastCrate: 0,
+                nextCrate: 1,
+                preventScrollRead: false,
+                scrollPosition: 0,
+                windowHeight: 0,
+                triggerTime: 1500,
+                observer: null,
+                scrollDown: null,
+                intervals: []
+            }
+        },
+        components : {
+            Workspace
+        },
+        mounted() {
+            this.$el.addEventListener('scroll', this.handleScroll);
+
+            let workspaces = this.$el.children
+
+            let options = {
+                root: this.$el, // relative to document viewport 
+                rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+                threshold: 1.0 // visible amount of item shown in relation to root
+            };
+
+            this.observer = new IntersectionObserver(this.intersectioHandler, options);
+            for (let workspace of workspaces) {
+                this.observer.observe(workspace)
+            }
+        },
+        destroyed() {
+            this.$el.removeEventListener('scroll', this.handleScroll);
+        },
+        methods: {
+            intersectioHandler([entries], observer) {
+                // Sets lastCrate, when the intersection is made
+                let intersectionIndex = entries.target.attributes["data-a"].value
+                this.lastCrate = parseInt(intersectionIndex)              
+            },
+            handleWheel(event) {
+                if (event.deltaY > 0) {
+                    this.scrollDown = true
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) + 1, this.numberOfProjects)
+                }
+                if (event.deltaY < 0) {
+                    this.scrollDown = false
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfProjects)
+                }
+
+               this.handleAnimation()
+            },
+            handleScroll(event) {
+                // Any code to be executed when the window is scrolled
+                this.scrollPosition = event.target.scrollTop;
+                this.windowHeight = window.innerHeight
+
+                for(let i = 0; i < this.numberOfProjects; i++) {
+                    this.intervals[i] = {
+                        pixel: i * this.windowHeight,
+                        id: i
+                    }
+                }
+
+                this.intervals.forEach((interval) => {
+                    if(this.scrollPosition > interval.pixel) {
+                        this.lastCrate = interval.id
+                        return
+                    }
+                })
+
+                if (this.preventScrollRead) {
+                    return
+                }
+
+                this.preventScrollRead = true
+
+
+                
+
+
+                setTimeout(() => {
+                    // Determine the closest edge
+                    let closestCorner = this.scrollPosition / this.windowHeight
+                    let scrollTo = Math.round(closestCorner) * this.windowHeight
+
+                    // Scroll to Edge
+                    this.$el.scrollTo({
+                        top: scrollTo,
+                        left: 0,
+                        behavior: 'smooth'
+                    })
+
+                    // Activate the ability to ScrollRead again
+                    this.preventScrollRead = false
+                }, this.triggerTime)
+            },
+            handleAnimation() {
+                // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))
+                let scrollModifier = (this.scrollPosition % this.windowHeight)
+                
+                // Add or remove styles from the elements
+
+                // this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]').style.clipPath = "inset( 0 0 " + scrollModifier + "px 0)"
+            },
+            mod(n, m) {
+                return ((n % m) + m) % m;
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .workspaces {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        height: 100vh;
+        // scroll-snap-stop: normal;
+        // scroll-snap-type: y proximity;
+
+        .workspace {
+            width: 100%;
+            height: 100vh;
+            // scroll-snap-align: start;
+            background-size: cover;
+            border: 2px red dashed;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+
+            &__image {
+                position: relative;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                width: 82rem;
+                height: 60rem;
+                max-height: 80vh;
+                background-size: cover !important;
+                background-position: center center;
+            }
+
+            .parallax::after {
+                content: " ";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                transform: translateZ(-1px) scale(1.5);
+                background-size: 100%;
+                z-index: -1;
+            }
+        }
+    }
+</style>
