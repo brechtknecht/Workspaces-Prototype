@@ -5,7 +5,7 @@ import App from './App.vue'
 import Vuex from 'vuex'
 
 
-import store from './stores/store'
+import store from './stores/'
 
 
 createApp(App).use(store).mount('#app')

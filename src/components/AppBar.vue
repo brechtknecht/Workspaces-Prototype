@@ -3,7 +3,7 @@
         <div class="left">
             <div class="menu-element">
                 <div class="app-entry">
-                    <span>Finder</span>
+                    <span><b>Finder</b></span>
                 </div>
                 <div class="menu-entry">
                     <span>File</span>
@@ -21,7 +21,7 @@
         </div>
         <div class="right">
             <div class="menu-element">
-                <span>Workspace: </span>
+                <span>Workspace: {{ count }}</span>
             </div>
             <div class="menu-element">
                 <span>Wifi</span>
@@ -34,21 +34,33 @@
 </template>
 
 <script>
-export default {
+import { mapState } from 'vuex' 
 
+export default {
+    computed:  {
+        ...mapState([
+            'count'
+        ])
+    }
 }
 </script>
 
 <style lang="scss">
     .app-bar {
         position: fixed;
-        margin: 1rem;
+        margin: .75rem;
 
         display: flex;
         justify-content: space-between;
 
         width: 100%;
         max-width: calc(100vw - 2rem);
+
+        .right {
+            .menu-element:not(:last-child) {
+                margin-right: .5em;
+            }
+        }
 
         .left,
         .right {
