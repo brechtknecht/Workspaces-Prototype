@@ -25,7 +25,9 @@
                 observer: null,
                 scrollDown: null,
                 intervals: [],
-                currentWorkspace: 0
+                currentWorkspace: 0,
+                scrollTimeout: null,
+                touchEndTimeout: null
             }
         },
         components : {
@@ -41,14 +43,21 @@
             }
         },
         mounted() {
-            this.$el.addEventListener('scroll', this.handleScroll);
+            this.$el.addEventListener("wheel", (e) => {
+                clearTimeout(this.scrollTimeout);
+                clearTimeout(this.touchEndTimeout);
+                this.scrollTimeout = setTimeout(() => {
+                    console.log("Scrolling has stopped.");
+                    this.handleScroll(e)
+                }, 100);
+            });
 
             let workspaces = this.$el.children
 
             let options = {
                 root: this.$el, // relative to document viewport 
                 rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-                threshold: 0.7 // visible amount of item shown in relation to root
+                threshold: 0.9 // visible amount of item shown in relation to root
             };
 
             this.observer = new IntersectionObserver(this.intersectioHandler, options);
@@ -82,7 +91,7 @@
             },
             handleScroll(event) {
                 // Any code to be executed when the window is scrolled
-                this.scrollPosition = event.target.scrollTop;
+                this.scrollPosition = this.$el.scrollTop;
                 this.windowHeight = window.innerHeight
 
                 for(let i = 0; i < this.numberOfWorkspaces; i++) {
@@ -93,40 +102,31 @@
                 }
 
                 this.intervals.forEach((interval) => {
-                    if(this.scrollPosition > interval.pixel) {
+                    if(this.$el.scrollTop > interval.pixel) {
                         this.lastCrate = interval.id
                         return
                     }
                 })
+                
+                // Determine the closest edge
+                console.log("currentworkspace:", this.currentWorkspace)
 
-                if (this.preventScrollRead) {
-                    return
-                }
+                let closestCorner = this.$el.scrollTop / (this.windowHeight)
+                let scrollTo = (Math.round(closestCorner) * this.windowHeight) + (40 * this.currentWorkspace)
 
-                this.preventScrollRead = true
+                console.log(this.$el.scrollTop)
 
-                setTimeout(() => {
-                    // Determine the closest edge
-                    console.log("currentworkspace:", this.currentWorkspace)
+                this.$el.scrollTo({
+                    top: scrollTo,
+                    left: 0,
+                    behavior: 'smooth'
+                })
 
 
-                    let closestCorner = this.scrollPosition / (this.windowHeight)
-                    let scrollTo = Math.round(closestCorner) * this.windowHeight + (40 * this.currentWorkspace)
-
-                    // Scroll to Edge
-                    this.$el.scrollTo({
-                        top: scrollTo,
-                        left: 0,
-                        behavior: 'smooth'
-                    })
-
-                    // Activate the ability to ScrollRead again
-                    this.preventScrollRead = false
-                }, this.triggerTime)
             },
             handleAnimation() {
                 // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))
-                let scrollModifier = (this.scrollPosition % this.windowHeight)
+                let scrollModifier = (this.$el.scrollTop % this.windowHeight)
                 
                 // Add or remove styles from the elements
 
@@ -145,8 +145,15 @@
         overflow-x: hidden;
         scroll-behavior: smooth;
         height: 100vh;
+
+
+        background: #000000;
         // scroll-snap-stop: normal;
         // scroll-snap-type: y proximity;
+
+        .workspace:not(:last-child) {
+            margin-bottom: 40px;
+        }
 
         .workspace {
             width: 100%;
@@ -154,8 +161,6 @@
             scroll-snap-align: start;
             background-size: cover;
             display: none;
-
-            margin-bottom: 40px;
 
             &.active {
                 display: block;
