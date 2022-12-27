@@ -1,6 +1,6 @@
 <template>
-    <div class="person-bar" :class={isForcedOut:personBarPushed}>
-        <div class="person-bar-wrapper">
+    <div class="person-bar">
+        <div class="person-bar-wrapper" :class={forceOut:isForcedOut}>
             <transition-group name="list" tag="ul">
                 <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
                     <Person :person="member"/>
@@ -22,10 +22,14 @@ export default {
     computed:  {
         ...mapState([
             'workspace',
-            'workspaces'
+            'workspaces',
+            'uiState'
         ]),
         currentWorkspace() {
             return this.workspaces[this.workspace.currentInt]
+        },
+        isForcedOut (){
+            return this.uiState.personBarForcedOut
         }
     }
 }
@@ -45,10 +49,14 @@ export default {
         transform: translateY(-50%);
         transition: 250ms; 
         animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+
         .person-bar-wrapper {
             transition: 250ms; 
             animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
-            transform: translateX(100%)
+            transform: translateX(100%);
+            &.forceOut {
+                transform: translateX(0) !important;
+            }
         }
 
         &:hover {

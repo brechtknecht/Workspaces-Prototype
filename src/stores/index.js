@@ -16,7 +16,8 @@ const store = createStore({
       },
       workspaces: WorkspaceDefaults,
       uiState : {
-        isInOverview: false
+        isInOverview: false,
+        personBarForcedOut: false
       }
     }
   },
@@ -26,6 +27,15 @@ const store = createStore({
     },
     toggleWorkspacesOverview(state) {
       state.uiState.isInOverview = !state.uiState.isInOverview
+    },
+    togglePersonBarForcedOut(state, payload) {
+      if(!payload) {
+        setTimeout(function() {
+          state.uiState.personBarForcedOut = false
+      }, 2000);
+      } else {
+        state.uiState.personBarForcedOut = true
+      }
     }
   }
 })

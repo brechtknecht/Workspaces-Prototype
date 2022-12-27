@@ -48,6 +48,10 @@
         },
         mounted() {
             this.$el.addEventListener("wheel", (e) => {
+
+                // When scrolling, force the toobar to be out
+                this.$store.commit('togglePersonBarForcedOut', true)
+
                 clearTimeout(this.scrollTimeout);
                 clearTimeout(this.touchEndTimeout);
                 this.scrollTimeout = setTimeout(() => {
@@ -123,6 +127,9 @@
                     left: 0,
                     behavior: 'smooth'
                 })
+
+                // When scrolling is finished, hide the toolbar again
+                this.$store.commit('togglePersonBarForcedOut', false)
 
 
             },
