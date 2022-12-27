@@ -27,6 +27,7 @@
                 <p class="p1">􀪷</p>
                 <p class="p1">􀙇</p>
                 <p class="p1">􀉤</p>
+                <p class="p1">􀺸</p>
             </div>
             <div class="menu-element">
                 <span>Battery</span>
@@ -82,7 +83,7 @@ export default {
                 border-radius: 12px;
                 &.sf-symbols {
                     p:not(:last-child) {
-                        margin-right: .5rem;
+                        margin-right: .75rem;
                     }
                 }
                 .menu-entry {

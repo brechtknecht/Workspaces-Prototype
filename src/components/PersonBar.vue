@@ -1,10 +1,12 @@
 <template>
-    <div class="person-bar">
-        <transition-group name="list" tag="ul">
-            <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
-                <Person :person="member"/>
-            </div>
-        </transition-group>
+    <div class="person-bar" :class={isForcedOut:personBarPushed}>
+        <div class="person-bar-wrapper">
+            <transition-group name="list" tag="ul">
+                <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
+                    <Person :person="member"/>
+                </div>
+            </transition-group>
+        </div>
     </div>
 </template>
 
@@ -40,7 +42,20 @@ export default {
         position: fixed;
         right: 1rem;
         top: 50%;
-        transform: translateY(-50%)
+        transform: translateY(-50%);
+        transition: 250ms; 
+        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+        .person-bar-wrapper {
+            transition: 250ms; 
+            animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+            transform: translateX(100%)
+        }
+
+        &:hover {
+            .person-bar-wrapper {
+                transform: translateX(0);
+            }
+        }
     }
 
     .list-move, /* apply transition to moving elements */
