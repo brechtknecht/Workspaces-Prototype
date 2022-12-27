@@ -156,7 +156,8 @@
         height: 50%;
         transform: scale(.4);
         overflow: initial !important;
-        transition: .25s ease-out;
+        transition: .25s;
+        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
         border-radius: 12px;
 
         background: transparent !important;
@@ -184,7 +185,8 @@
         overflow-x: hidden;
         scroll-behavior: smooth;
         height: 100vh;
-        transition: .25s ease-out;
+        transition: .25s; 
+        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
         
         display: flex;
         flex-direction: column;

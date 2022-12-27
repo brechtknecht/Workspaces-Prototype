@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="right">
-            <div class="menu-element" @click="toggleOverview">
+            <div class="menu-element currentWorkspace" @click="toggleOverview">
                 <span>{{ workspaces[workspace.currentInt].workspace.title }}</span>
             </div>
             <div class="menu-element sf-symbols">
@@ -81,11 +81,21 @@ export default {
                 padding: .5rem .75rem;
                 background: rgba(255,255,255,.8);
                 border-radius: 12px;
+                max-width: 100%;
+                transition: all 250ms; 
+                animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
                 &.sf-symbols {
                     p:not(:last-child) {
                         margin-right: .75rem;
                     }
                 }
+
+                &.currentWorkspace {
+                    transition: all 250ms; 
+                    animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+                    max-width: 100%;
+                }
+
                 .menu-entry {
                     &:not(:first-child) {
                         margin-left: 1rem;
