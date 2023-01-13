@@ -46,7 +46,7 @@ export default {
         position: fixed;
         right: 1rem;
         top: 50%;
-        transform: translateY(-50%) scale(.8);
+        transform: translateY(-50%);
         transition: 250ms; 
         animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
 
@@ -72,17 +72,20 @@ export default {
         transition: all 0.5s ease;
     }
 
-    .list-enter-from,
+    .list-enter-from{
+        opacity: 0;
+        transform: translateY(5rem);
+    }
+
     .list-leave-to {
         opacity: 0;
-        transform: translateX(10rem);
     }
 
     /* ensure leaving items are taken out of layout flow so that moving
     animations can be calculated correctly. */
     .list-leave-active {
         position: absolute;
-        transform: translateY(0);
+        transform: translateY(5rem);
     }
 
 </style>
