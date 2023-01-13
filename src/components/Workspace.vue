@@ -1,7 +1,7 @@
 <template>
   <div class="spaces-wrapper">
     <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
-        <window-manager/>
+        <window-manager :windows="space.windows"/>
     </div>
   </div>
 </template>
