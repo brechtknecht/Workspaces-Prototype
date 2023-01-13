@@ -169,6 +169,8 @@ export default {
 .spaces-wrapper {
   display: flex;
   overflow-x: scroll;
+  overflow-y: hidden;
+  max-height: 100vh;
   
   .space {
     min-width: 100vw;
