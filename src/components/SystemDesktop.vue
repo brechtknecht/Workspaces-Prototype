@@ -33,7 +33,6 @@
         components : {
             Workspace
         },
-
         computed: {
             ...mapState([
                 'workspaces',
@@ -44,6 +43,8 @@
             }
         },
         mounted() {
+            window.addEventListener('keydown', this.handleShortcuts);
+
             this.$el.addEventListener("wheel", (e) => {
 
                 // When scrolling, force the toobar to be out
@@ -74,6 +75,15 @@
             this.$el.removeEventListener('scroll', this.handleScroll);
         },
         methods: {
+            handleShortcuts(e) {
+                if (e.shiftKey && e.key === 'ArrowDown') {
+                    console.log('Shortcut Down Triggered!')
+                }
+
+                if (e.shiftKey && e.key === 'ArrowUp') {
+                    console.log('Shortcut Up Triggered!')
+                }
+            },
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
                 let intersectionIndex = entries.target.attributes["data-a"].value

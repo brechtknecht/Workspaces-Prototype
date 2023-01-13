@@ -94,6 +94,12 @@ export default {
                     transition: all 250ms; 
                     animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
                     max-width: 100%;
+                    span {
+                        max-width: 12rem;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                 }
 
                 .menu-entry {
