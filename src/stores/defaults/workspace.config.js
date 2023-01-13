@@ -1,15 +1,4 @@
 // workspace: {
-//     title: "Workspace 0",
-//     activeWindow: '2222-2222-2222',
-//     members: []
-//     multiplayer: {
-//         isMultiplayerSession: false,
-//         attendants: [],
-//         windows: []
-//     }
-// }
-
-
 export default [ 
     {
         properties: {
@@ -22,7 +11,7 @@ export default [
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
-                windows: []
+                multiplayerWindows: []
             }
         }
     },
@@ -37,10 +26,21 @@ export default [
                     windows: [
                         {
                             id: 'lkfdw',
-                            width: 200,
-                            height: 200,
-                            x: 300,
-                            y: 300
+                            frame: {
+                                width: 200,
+                                height: 200,
+                                x: 300,
+                                y: 300
+                            }
+                        },
+                        {
+                            id: 'lbews',
+                            frame: {
+                                width: 200,
+                                height: 200,
+                                x: 500,
+                                y: 300
+                            }
                         }
                     ]  
                 },
@@ -56,7 +56,7 @@ export default [
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
-                windows: []
+                multiplayerWindows: []
             }
         }
     },
@@ -78,7 +78,7 @@ export default [
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
-                windows: []
+                multiplayerWindows: []
             }
         }
     },
@@ -100,7 +100,7 @@ export default [
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
-                windows: []
+                multiplayerWindows: []
             }
         }
     },
@@ -122,7 +122,7 @@ export default [
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
-                windows: []
+                multiplayerWindows: []
             }
         }
     }

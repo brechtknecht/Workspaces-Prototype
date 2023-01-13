@@ -1,7 +1,9 @@
 <template>
   <div class="spaces-wrapper">
     <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
-      {{ workspace.properties }}
+        <div v-for="(window, index) in space.windows" :key="window.id">
+            <window :properties="window" />
+        </div>
     </div>
   </div>
 </template>
@@ -9,6 +11,7 @@
 <script>
 
 import { mapState } from 'vuex';
+import Window from './base/Window.vue'
 
 export default {
   data() {
@@ -31,6 +34,9 @@ export default {
 
         isInOverview : true
       }
+  },
+  components: {
+    Window
   },
   computed: {
       ...mapState([
