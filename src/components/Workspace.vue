@@ -1,11 +1,7 @@
 <template>
   <div class="spaces-wrapper">
     <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
-        <div class="window-wrapper">
-            <div v-for="(window, index) in space.windows" :key="window.id" class="window" :id="window.id">
-                <window :properties="window" />
-            </div>
-        </div>
+        <window-manager/>
     </div>
   </div>
 </template>
@@ -13,7 +9,7 @@
 <script>
 
 import { mapState } from 'vuex';
-import Window from './base/Window.vue'
+import WindowManager from '../managers/WindowManager.vue'
 
 export default {
   data() {
@@ -33,12 +29,16 @@ export default {
         scrollTimeout: null,
         touchEndTimeout: null,
         
+        isInOverview : true,
 
-        isInOverview : true
+
+
+        windows: ["1", "2", "3"],
+        activeWindow: null,
       }
   },
   components: {
-    Window
+    WindowManager
   },
   computed: {
       ...mapState([
@@ -154,6 +154,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.window-wrapper {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #ccc;
+  padding: 20px;
+  width: 50px;
+  height: 50px;
+  z-index: 10; /* this will make sure that the active window is on top of the others */
+}
 .spaces-wrapper {
   display: flex;
   overflow-x: scroll;
@@ -172,12 +184,6 @@ export default {
   .space:not(:last-child) {
       margin-right: 40px;
   }
-}
-
-.window-wrapper {
-    min-width: 100vw;
-    min-height: 100vh;
-    position: relative;
 }
 
 .window {
