@@ -80,8 +80,6 @@ export default {
           let intersectionIndex = entries.target.attributes["data-a"].value
           this.currentWorkspace = intersectionIndex
           this.lastCrate = parseInt(intersectionIndex)
-
-          this.$store.commit('setCurrentWorkspace', this.currentWorkspace)
       },
       handleWheel(event) {
           if (event.deltaX > 0) {

@@ -1,6 +1,6 @@
 <template>
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
-        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace active" :data-a="index">
+        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace" :data-a="index">
             <Workspace :workspace="workspace" />
         </div>
     </div>
@@ -73,16 +73,42 @@
         },
         destroyed() {
             this.$el.removeEventListener('scroll', this.handleScroll);
+            window.removeEventListener("keydown", this.handleShortcuts);
         },
         methods: {
             handleShortcuts(e) {
                 if (e.shiftKey && e.key === 'ArrowDown') {
                     console.log('Shortcut Down Triggered!')
+                    this.moveDown()
                 }
 
                 if (e.shiftKey && e.key === 'ArrowUp') {
                     console.log('Shortcut Up Triggered!')
+                    this.moveUp()
                 }
+            },
+            moveUp () {
+                let upperScrollPos = 0
+                if(this.lastCrate > 0) {
+                    upperScrollPos = this.$el.children[this.lastCrate - 1].offsetTop;
+                    console.log(upperScrollPos)
+                }
+            
+                this.$el.scrollTo({
+                    top: upperScrollPos,
+                    behavior: 'smooth'
+                })
+            },
+            moveDown() {
+                let upperScrollPos = 0
+                if(this.lastCrate < this.numberOfWorkspaces) {
+                    upperScrollPos = this.$el.children[this.lastCrate + 1].offsetTop;
+                }
+
+                this.$el.scrollTo({
+                    top: upperScrollPos,
+                    behavior: 'smooth'
+                })
             },
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
