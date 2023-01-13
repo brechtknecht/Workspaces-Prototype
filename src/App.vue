@@ -10,16 +10,24 @@
   <PersonBar/>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #000;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
 
-body {
-  body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  }
+    html {
+      overflow: hidden;
+    }
 
-  background: #000;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
+    #app {
+      overflow: hidden;
+    }
+
+    
+  
 </style>
