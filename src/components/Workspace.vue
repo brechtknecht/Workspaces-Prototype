@@ -1,6 +1,8 @@
 <template>
-  <div class="space">
-    <span>{{ workspace.title }}</span>
+  <div class="space-wrapper">
+    <div v-for="space in workspace.workspace.spaces" :key="space.title"  class="space">
+      <span>{{ workspace.title }}</span>
+    </div>
   </div>
 </template>
 
@@ -20,16 +22,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.space {
-  width: 100vw;
-  height: 100vh;
-  background: url('/assets/macOS-Background.png');
-  background-size: cover;
-
+.space-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center
+  overflow: scroll;
+  .space {
+    width: 100vw;
+    height: 100vh;
+    background: url('/assets/macOS-Background.png');
+    background-size: cover;
 
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
 }
 </style>

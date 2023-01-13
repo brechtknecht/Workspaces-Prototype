@@ -33,6 +33,8 @@ export default {
             border-radius: 18px;
             min-width: 18rem;
 
+            cursor: pointer;
+
             .image {
                 /* Auto layout */
                 display: flex;

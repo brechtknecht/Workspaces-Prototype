@@ -16,6 +16,9 @@ export default [
             title: "Default Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
+            spaces: [
+                '1', '2'
+            ],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
@@ -28,6 +31,9 @@ export default [
             title: "Design Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}],
+            spaces: [
+                '1', '2'
+            ],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
@@ -40,6 +46,9 @@ export default [
             title: "Building Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Sophie',image: ''}],
+            spaces: [
+                '1', '2'
+            ],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
@@ -52,6 +61,9 @@ export default [
             title: "Brutal Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
+            spaces: [
+                '1', '2'
+            ],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
@@ -64,6 +76,9 @@ export default [
             title: "FHP-Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Gustav',image: ''}],
+            spaces: [
+                '1', '2'
+            ],
             multiplayer: {
                 isMultiplayerSession: false,
                 attendants: [],
