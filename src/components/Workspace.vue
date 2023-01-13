@@ -1,6 +1,6 @@
 <template>
   <div class="spaces-wrapper">
-    <div v-for="(space, index) in workspace.workspace.spaces" :key="space.title"  class="space" :data-a="index">
+    <div v-for="(space, index) in workspace.workspace.spaces" :key="space.title" class="space" :data-a="index">
       <span>{{ workspace.title }}</span>
     </div>
   </div>
@@ -100,8 +100,6 @@ export default {
           this.scrollPosition = this.$el.scrollLeft;
           this.windowWidth = window.innerWidth
 
-          console.log(this.$el.offsetLeft)
-
           for(let i = 0; i < this.numberOfWorkspaces; i++) {
               this.intervals[i] = {
                   pixel: i * this.windowWidth,
@@ -154,7 +152,6 @@ export default {
   display: flex;
   overflow-x: scroll;
   
-  
   .space {
     min-width: 100vw;
     width: 100vw !important;
@@ -165,6 +162,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center
+  }
+  .space:not(:last-child) {
+      margin-right: 40px;
   }
 }
 </style>

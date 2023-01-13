@@ -32,7 +32,7 @@ export default [
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}],
             spaces: [
-                '1', '2'
+                '1', '2', '3'
             ],
             multiplayer: {
                 isMultiplayerSession: false,
