@@ -46,7 +46,7 @@ export default {
         position: fixed;
         right: 1rem;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%) scale(.8);
         transition: 250ms; 
         animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
 

@@ -8,9 +8,6 @@
 
 <script>
     import { mapState } from 'vuex';
-
-    import { vElementVisibility } from '@vueuse/components'
-
     import Workspace from './Workspace.vue'
 
     export default {
@@ -149,40 +146,11 @@
 </script>
 
 <style lang="scss" scoped>
-
-    .overview {
-        position: relative;
-        width: 100%;
-        height: 50%;
-        transform: scale(.4);
-        overflow: initial !important;
-        transition: .25s;
-        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
-        border-radius: 12px;
-
-        background: transparent !important;
-
-        .workspace {
-            background: transparent;
-        }
-
-        .workspace:first-child {
-            .space {
-                border-top-left-radius: 40px;
-                border-top-right-radius: 40px;
-            }
-        }
-
-        .workspace:last-child {
-            .space {
-                border-bottom-left-radius: 40px;
-                border-bottom-right-radius: 40px;
-            }
-        }
-    }
     .workspaces {
         overflow-y: scroll;
         overflow-x: hidden;
+        width: 100vw;
+        max-width: 100vw;
         scroll-behavior: smooth;
         height: 100vh;
         transition: .25s; 
@@ -200,15 +168,11 @@
         }
 
         .workspace {
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             scroll-snap-align: start;
             background-size: cover;
-            display: none;
-
-            &.active {
-                display: block;
-            }
+            display: block;
 
             &__image {
                 position: relative;

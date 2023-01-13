@@ -17,7 +17,10 @@
         background: #000;
         width: 100%;
         height: 100vh;
+        width: 100vw;
+        max-width: 100vw;
         overflow: hidden;
+        
     }
 
     html {
