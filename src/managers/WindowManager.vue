@@ -1,9 +1,14 @@
 <template>
     <div ref="container" style="height: 100vh; width: 100vw; position: relative" class="window-manager">
         <div v-for="(window, index) in windows" :key="index" class="window-wrapper" ref="window"
-            @mousedown="startDrag(index)">
+            @mousedown="startDrag(index)"
+            :style="{
+                'left': window.frame.x + 'px',
+                'top' : window.frame.y + 'px',
+                'width' : window.frame.width + 'px',
+                'height' : window.frame.height + 'px'
+            }">
             <!-- content of the window goes here -->
-
             <window :properties="window"/> 
         </div>
     </div>

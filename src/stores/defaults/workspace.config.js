@@ -27,10 +27,10 @@ export default [
                         {
                             id: 'lkfdw',
                             frame: {
-                                width: 200,
-                                height: 200,
-                                x: 300,
-                                y: 300
+                                width: 400,
+                                height: 230,
+                                x: 120,
+                                y: 50
                             }
                         },
                         {
@@ -38,7 +38,7 @@ export default [
                             frame: {
                                 width: 200,
                                 height: 200,
-                                x: 300,
+                                x: 400,
                                 y: 300
                             }
                         },{
@@ -46,7 +46,7 @@ export default [
                             frame: {
                                 width: 200,
                                 height: 200,
-                                x: 300,
+                                x: 700,
                                 y: 300
                             }
                         }
