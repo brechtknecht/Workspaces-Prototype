@@ -1,7 +1,7 @@
 <template>
     <div class="person-wrapper">
         <div class="person">
-            <div class="image"> <img :src="this.person.image"/> </div>
+            <div class="image" :style="{'background': 'url(' + this.person.image + ')'}"></div>
             <h4  class="name">{{ this.person.name }}</h4>
         </div>
     </div>
@@ -48,6 +48,8 @@ export default {
 
                 width: 36px;
                 height: 36px;
+
+                background-size: cover !important;
             }
             .name {
                 font-size: 22px;

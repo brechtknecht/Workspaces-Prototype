@@ -2,64 +2,64 @@
 export default [ 
     {
         properties: {
-            title: "Default Workspace",
-            activeWindow: '2222-2222-2222',
-            members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
-            spaces: [
-                '1', '2'
-            ],
-            multiplayer: {
-                isMultiplayerSession: false,
-                attendants: [],
-                multiplayerWindows: []
-            }
-        }
-    },
-    {
-        properties: {
             title: "Design Workspace",
-            activeWindow: '2222-2222-2222',
-            members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}],
+            members: [
+                {
+                    name: 'Martin',
+                    image: 'https://images.pexels.com/photos/4029925/pexels-photo-4029925.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+                },
+                {
+                    name: 'Peter',
+                    image: 'https://images.pexels.com/photos/5794559/pexels-photo-5794559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+                }
+            ],
             spaces: [
                 {
-                    id: '1',
+                    id: '9375-11ed-a1eb',
                     windows: [
                         {
-                            id: 'lkfdw',
+                            id: 'Figma',
                             frame: {
-                                width: 400,
-                                height: 230,
+                                width: 720,
+                                height: 640,
                                 x: 120,
                                 y: 50
                             }
                         },
                         {
-                            id: 'afffe',
+                            id: 'Miro',
                             frame: {
-                                width: 200,
-                                height: 200,
+                                width: 460,
+                                height: 330,
                                 x: 400,
-                                y: 300
-                            }
-                        },{
-                            id: 'abbbe',
-                            frame: {
-                                width: 200,
-                                height: 200,
-                                x: 700,
                                 y: 300
                             }
                         }
                     ]  
                 },
                 {
-                    id: '2',
-                    windows: []
+                    id: '9376-11ed-a1eb',
+                    windows: [
+                        {
+                            id: 'Google Docs',
+                            frame: {
+                                width: 720,
+                                height: 640,
+                                x: 120,
+                                y: 50
+                            }
+                        },
+                        {
+                            id: 'Miro',
+                            frame: {
+                                width: 460,
+                                height: 330,
+                                x: 400,
+                                y: 300
+                            }
+                        }
+                    ]  
                 },
-                {
-                    id: '3',
-                    windows: []
-                }
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -70,18 +70,64 @@ export default [
     },
     {
         properties: {
-            title: "Building Workspace",
-            activeWindow: '2222-2222-2222',
-            members: [{name: 'Sophie',image: ''}],
-            spaces: [
+            title: "Development Workspace",
+            members: [
                 {
-                    id: '1',
-                    windows: []
+                    name: 'Jessica',
+                    image: 'https://www.pexels.com/photo/woman-wearing-black-glasses-and-white-shirt-936610/'
                 },
                 {
-                    id: '2',
-                    windows: []
+                    name: 'John',
+                    image: 'https://www.pexels.com/photo/man-wearing-black-frame-eyeglasses-2108706/'
                 }
+            ],
+            spaces: [
+                {
+                    id: '9875-11ed-b1eb',
+                    windows: [
+                        {
+                            id: 'Visual Studio Code',
+                            frame: {
+                                width: 920,
+                                height: 720,
+                                x: 20,
+                                y: 80
+                            }
+                        },
+                        {
+                            id: 'Terminal',
+                            frame: {
+                                width: 260,
+                                height: 130,
+                                x: 600,
+                                y: 500
+                            }
+                        }
+                    ]  
+                },
+                {
+                    id: '9876-11ed-b1eb',
+                    windows: [
+                        {
+                            id: 'Slack',
+                            frame: {
+                                width: 720,
+                                height: 640,
+                                x: 120,
+                                y: 50
+                            }
+                        },
+                        {
+                            id: 'Google Chrome',
+                            frame: {
+                                width: 460,
+                                height: 330,
+                                x: 400,
+                                y: 300
+                            }
+                        }
+                    ]  
+                },
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -92,18 +138,64 @@ export default [
     },
     {
         properties: {
-            title: "Brutal Workspace",
-            activeWindow: '2222-2222-2222',
-            members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
-            spaces: [
+            title: "Collaboration Workspace",
+            members: [
                 {
-                    id: '1',
-                    windows: []
+                    name: 'Emily',
+                    image: 'https://www.pexels.com/photo/woman-wearing-white-and-black-striped-shirt-226547/'
                 },
                 {
-                    id: '2',
-                    windows: []
+                    name: 'David',
+                    image: 'https://www.pexels.com/photo/man-in-black-frame-eyeglasses-3255448/'
                 }
+            ],
+            spaces: [
+                {
+                    id: '5674-11ed-c1eb',
+                    windows: [
+                        {
+                            id: 'Asana',
+                            frame: {
+                                width: 920,
+                                height: 720,
+                                x: 20,
+                                y: 80
+                            }
+                        },
+                        {
+                            id: 'Google Meet',
+                            frame: {
+                                width: 260,
+                                height: 130,
+                                x: 600,
+                                y: 500
+                            }
+                        }
+                    ]  
+                },
+                {
+                    id: '5675-11ed-c1eb',
+                    windows: [
+                        {
+                            id: 'Trello',
+                            frame: {
+                                width: 720,
+                                height: 640,
+                                x: 120,
+                                y: 50
+                            }
+                        },
+                        {
+                            id: 'Zoom',
+                            frame: {
+                                width: 460,
+                                height: 330,
+                                x: 400,
+                                y: 300
+                            }
+                        }
+                    ]  
+                },
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -111,28 +203,6 @@ export default [
                 multiplayerWindows: []
             }
         }
-    },
-    {
-        properties: {
-            title: "FHP-Workspace",
-            activeWindow: '2222-2222-2222',
-            members: [{name: 'Martin',image: ''}, {name: 'Gustav',image: ''}],
-            spaces: [
-                {
-                    id: '1',
-                    windows: []
-                },
-                {
-                    id: '2',
-                    windows: []
-                }
-            ],
-            multiplayer: {
-                isMultiplayerSession: false,
-                attendants: [],
-                multiplayerWindows: []
-            }
-        }
-    }
+    }    
     
 ]
