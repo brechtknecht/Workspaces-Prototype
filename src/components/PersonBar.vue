@@ -2,7 +2,7 @@
     <div class="person-bar">
         <div class="person-bar-wrapper" :class={forceOut:isForcedOut}>
             <transition-group name="list" tag="ul">
-                <div v-for="(member, index) in currentWorkspace.workspace.members" v-bind:key="member.name" class="list-complete-item">
+                <div v-for="(member, index) in currentWorkspace.properties.members" v-bind:key="member.name" class="list-complete-item">
                     <Person :person="member"/>
                 </div>
             </transition-group>

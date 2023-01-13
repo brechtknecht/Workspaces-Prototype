@@ -1,7 +1,7 @@
 <template>
   <div class="spaces-wrapper">
-    <div v-for="(space, index) in workspace.workspace.spaces" :key="space.title" class="space" :data-a="index">
-      <span>{{ workspace.title }}</span>
+    <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
+      {{ workspace.properties }}
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
           'uiState'
       ]),
       numberOfWorkspaces: function () {
-          return this.workspace.workspace.spaces.length
+          return this.workspace.properties.spaces.length
       }
   },
   props: {
@@ -48,7 +48,7 @@ export default {
       this.$el.addEventListener("wheel", (e) => {
 
           // When scrolling, force the toobar to be out
-          this.$store.commit('togglePersonBarForcedOut', true)
+          this.$store.commit('showPersonBar', 'infinite')
 
           clearTimeout(this.scrollTimeout);
           clearTimeout(this.touchEndTimeout);
@@ -125,7 +125,7 @@ export default {
           })
 
           // When scrolling is finished, hide the toolbar again
-          this.$store.commit('togglePersonBarForcedOut', false)
+          this.$store.commit('hidePersonBarWithDelay', 1500)
 
 
       },

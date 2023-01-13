@@ -21,7 +21,7 @@
         </div>
         <div class="right">
             <div class="menu-element currentWorkspace" @click="toggleOverview">
-                <span>{{ workspaces[workspace.currentInt].workspace.title }}</span>
+                <span>{{ workspaces[workspace.currentInt].properties.title }}</span>
             </div>
             <div class="menu-element sf-symbols">
                 <p class="p1">􀪷</p>

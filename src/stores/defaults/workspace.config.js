@@ -12,7 +12,7 @@
 
 export default [ 
     {
-        workspace: {
+        properties: {
             title: "Default Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
@@ -27,12 +27,31 @@ export default [
         }
     },
     {
-        workspace: {
+        properties: {
             title: "Design Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}],
             spaces: [
-                '1', '2', '3'
+                {
+                    id: '1',
+                    windows: [
+                        {
+                            id: 'lkfdw',
+                            width: 200,
+                            height: 200,
+                            x: 300,
+                            y: 300
+                        }
+                    ]  
+                },
+                {
+                    id: '2',
+                    windows: []
+                },
+                {
+                    id: '3',
+                    windows: []
+                }
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -42,12 +61,19 @@ export default [
         }
     },
     {
-        workspace: {
+        properties: {
             title: "Building Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Sophie',image: ''}],
             spaces: [
-                '1', '2'
+                {
+                    id: '1',
+                    windows: []
+                },
+                {
+                    id: '2',
+                    windows: []
+                }
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -57,12 +83,19 @@ export default [
         }
     },
     {
-        workspace: {
+        properties: {
             title: "Brutal Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Peter',image: ''}, {name: 'Fred',image: ''}],
             spaces: [
-                '1', '2'
+                {
+                    id: '1',
+                    windows: []
+                },
+                {
+                    id: '2',
+                    windows: []
+                }
             ],
             multiplayer: {
                 isMultiplayerSession: false,
@@ -72,12 +105,19 @@ export default [
         }
     },
     {
-        workspace: {
+        properties: {
             title: "FHP-Workspace",
             activeWindow: '2222-2222-2222',
             members: [{name: 'Martin',image: ''}, {name: 'Gustav',image: ''}],
             spaces: [
-                '1', '2'
+                {
+                    id: '1',
+                    windows: []
+                },
+                {
+                    id: '2',
+                    windows: []
+                }
             ],
             multiplayer: {
                 isMultiplayerSession: false,

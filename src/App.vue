@@ -10,8 +10,7 @@
   <PersonBar/>
 </template>
 
-<style lang="scss" scoped>
-  
+<style lang="scss" scoped>  
     body {
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         background: #000;
