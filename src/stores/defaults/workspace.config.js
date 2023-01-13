@@ -34,11 +34,19 @@ export default [
                             }
                         },
                         {
-                            id: 'lbews',
+                            id: 'afffe',
                             frame: {
                                 width: 200,
                                 height: 200,
-                                x: 500,
+                                x: 300,
+                                y: 300
+                            }
+                        },{
+                            id: 'abbbe',
+                            frame: {
+                                width: 200,
+                                height: 200,
+                                x: 300,
                                 y: 300
                             }
                         }

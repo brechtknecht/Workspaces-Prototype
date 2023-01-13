@@ -17,7 +17,8 @@ const store = createStore({
       workspaces: WorkspaceDefaults,
       uiState : {
         isInOverview: false,
-        personBarForcedOut: false
+        personBarForcedOut: false,
+        personBarDisabled:false
       }
     }
   },
@@ -27,6 +28,9 @@ const store = createStore({
     },
     toggleWorkspacesOverview(state) {
       state.uiState.isInOverview = !state.uiState.isInOverview
+    },
+    disableSidebar(state, isDisabled) {
+      state.uiState.personBarDisabled = isDisabled
     },
     hidePersonBarWithDelay(state, time) {
       setTimeout(function() {

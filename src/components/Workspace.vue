@@ -1,8 +1,10 @@
 <template>
   <div class="spaces-wrapper">
     <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
-        <div v-for="(window, index) in space.windows" :key="window.id">
-            <window :properties="window" />
+        <div class="window-wrapper">
+            <div v-for="(window, index) in space.windows" :key="window.id" class="window" :id="window.id">
+                <window :properties="window" />
+            </div>
         </div>
     </div>
   </div>
@@ -170,5 +172,15 @@ export default {
   .space:not(:last-child) {
       margin-right: 40px;
   }
+}
+
+.window-wrapper {
+    min-width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+
+.window {
+    position: absolute;
 }
 </style>
