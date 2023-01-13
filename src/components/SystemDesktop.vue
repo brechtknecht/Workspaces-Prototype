@@ -48,7 +48,7 @@
             this.$el.addEventListener("wheel", (e) => {
 
                 // When scrolling, force the toobar to be out
-                this.$store.commit('togglePersonBarForcedOut', true)
+                this.$store.commit('showPersonBar', 'infinite')
 
                 clearTimeout(this.scrollTimeout);
                 clearTimeout(this.touchEndTimeout);
@@ -98,6 +98,8 @@
                     top: upperScrollPos,
                     behavior: 'smooth'
                 })
+
+                this.$store.commit('showPersonBar', 2500)
             },
             moveDown() {
                 let upperScrollPos = 0
@@ -109,6 +111,8 @@
                     top: upperScrollPos,
                     behavior: 'smooth'
                 })
+
+                this.$store.commit('showPersonBar', 2500)
             },
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
@@ -162,9 +166,7 @@
                 })
 
                 // When scrolling is finished, hide the toolbar again
-                this.$store.commit('togglePersonBarForcedOut', false)
-
-
+                this.$store.commit('hidePersonBarWithDelay', 2500)
             },
             handleAnimation() {
                 // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))

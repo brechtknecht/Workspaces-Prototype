@@ -28,14 +28,19 @@ const store = createStore({
     toggleWorkspacesOverview(state) {
       state.uiState.isInOverview = !state.uiState.isInOverview
     },
-    togglePersonBarForcedOut(state, payload) {
-      if(!payload) {
-        setTimeout(function() {
-          state.uiState.personBarForcedOut = false
-      }, 2000);
-      } else {
-        state.uiState.personBarForcedOut = true
-      }
+    hidePersonBarWithDelay(state, time) {
+      setTimeout(function() {
+        state.uiState.personBarForcedOut = false
+      }, time);
+    },
+    showPersonBar(state, time) {
+      state.uiState.personBarForcedOut = true
+      // If the time is infinite, force the person bar to stay out
+      if(time == 'infinite') { return; }
+
+      setTimeout(function() {
+        state.uiState.personBarForcedOut = false
+      }, time);
     }
   }
 })
