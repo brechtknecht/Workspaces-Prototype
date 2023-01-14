@@ -59,6 +59,8 @@ export default {
         position: fixed;
         margin: .75rem;
 
+        z-index: 100000;
+
         display: flex;
         justify-content: space-between;
 

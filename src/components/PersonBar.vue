@@ -50,6 +50,8 @@ export default {
         transition: 250ms; 
         animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
 
+        z-index: 100000;
+
         .person-bar-wrapper {
             transition: 250ms; 
             animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);

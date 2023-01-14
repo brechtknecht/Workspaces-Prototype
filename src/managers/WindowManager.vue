@@ -1,22 +1,21 @@
 <template>
     <div ref="container" style="height: 100vh; width: 100vw; position: relative" class="window-manager">
-        <div v-for="(window, index) in windows" :key="index" class="window-wrapper" ref="window"
-            @mousedown="startDrag(index)" :style="{
+        <div v-for="(window, index) in windows" :key="index" class="window-wrapper" ref="window" :style="{
                 'left': window.frame.x + 'px',
                 'top' : window.frame.y + 'px',
                 'width' : window.frame.width + 'px',
                 'height' : window.frame.height + 'px'
             }">
             <!-- content of the window goes here -->
-            
-            <div class="resize-handle resize-handle-top"></div>
-            <div class="resize-handle resize-handle-bottom"></div>
+            <div class="resize-handle resize-handle-top"    @mousedown="startResize('top')"></div>
+            <div class="resize-handle resize-handle-bottom" @mousedown="startResize('bottom')"></div>
             <div class="resize-handle resize-handle-left"></div>
             <div class="resize-handle resize-handle-right"></div>
             <div class="resize-handle resize-handle-top-left"></div>
             <div class="resize-handle resize-handle-top-right"></div>
             <div class="resize-handle resize-handle-bottom-left"></div>
             <div class="resize-handle resize-handle-bottom-right"></div>
+            <div class="drag-handle" @mousedown="startDrag(index)"></div>
             <div class="window-content">
             <!-- Your window content here -->
             <window :properties="window" />
@@ -36,12 +35,13 @@
     export default {
         data() {
             return {
-                windows: ["1", "2", "3"],
                 activeWindow: null,
+                browserWindowHeight: window.innerHeight,
+                browserWindow: window
             };
         },
         props: {
-            windows: Object
+            windows: {}
         },
         components: {
             Window
@@ -49,20 +49,26 @@
         methods: {
             /* RESIZING */
             startResize(edge) {
+                console.log("Start Resize")
                 this.resizing = true;
                 this.resizingEdge = edge;
                 this.offsetX = event.clientX;
                 this.offsetY = event.clientY;
-                this.$refs.container.addEventListener("mousemove", this.onMouseMove);
+                this.$refs.container.addEventListener("mousemove", this.onMouseMoveResize);
                 this.$refs.container.addEventListener("mouseup", this.stopResize);
             },
             onMouseMoveResize(e) {
+                console.log("Resizing")
                 const window = this.$refs.window[this.activeWindow];
+                const windowOffsetTop = parseInt(window.style.top);
+
                 if (this.resizingEdge === "left" || this.resizingEdge === "right") {
                     window.style.width = `${e.clientX - this.offsetX}px`;
                 }
                 if (this.resizingEdge === "top" || this.resizingEdge === "bottom") {
-                    window.style.height = `${e.clientY - this.offsetY}px`;
+                    window.style.height = `${e.clientY - windowOffsetTop - 62}px`;
+
+                    
                 }
             },
             stopResize() {
@@ -74,6 +80,7 @@
 
             /* DRAGGING */
             startDrag(index) {
+                console.log("Start Drag")
                 this.activeWindow = index;
                 this.$refs.window.forEach((w, i) => {
                     if (i !== this.activeWindow) {
@@ -117,7 +124,7 @@
         border: 1px solid #ccc;
         border-radius: 10px;
         box-shadow: 0px 5px 10px rgba(0, 0, 0, .12);
-        padding: 20px;
+        padding: 5px;
         width: auto;
         height: auto;
         z-index: 10;
@@ -133,7 +140,7 @@
     }
 
     .resize-handle-top {
-        top: -5px;
+        top: -10px;
         left: 50%;
         margin-left: -5px;
         cursor: n-resize;
@@ -182,6 +189,12 @@
         bottom: -5px;
         right: -5px;
         cursor: se-resize;
+    }
+
+    .drag-handle {
+        position: absolute;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
     }
 
     .window-manager {

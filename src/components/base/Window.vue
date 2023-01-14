@@ -1,6 +1,6 @@
 <template>
     <div ref="window" style="width: 200px; height: 200px;" @mousedown="startDrag" class="window-inner" :id="properties.id">
-        {{ this.properties }}
+        {{ this.properties }}        
     </div>
 </template>
 
@@ -26,5 +26,7 @@ export default {
         top: 0;
         left: 0;
     }
+
+ 
 
 </style>
