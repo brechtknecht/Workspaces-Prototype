@@ -7,14 +7,14 @@
                 'height' : window.frame.height + 'px'
             }">
             <!-- content of the window goes here -->
-            <div class="resize-handle resize-handle-top"    @mousedown="startResize('top')"></div>
-            <div class="resize-handle resize-handle-bottom" @mousedown="startResize('bottom')"></div>
+            <div class="resize-handle resize-handle-top"            @mousedown="startResize('top')"></div>
+            <div class="resize-handle resize-handle-bottom"         @mousedown="startResize('bottom')"></div>
             <div class="resize-handle resize-handle-left"></div>
-            <div class="resize-handle resize-handle-right"></div>
+            <div class="resize-handle resize-handle-right"          @mousedown="startResize('right')"></div>
             <div class="resize-handle resize-handle-top-left"></div>
             <div class="resize-handle resize-handle-top-right"></div>
             <div class="resize-handle resize-handle-bottom-left"></div>
-            <div class="resize-handle resize-handle-bottom-right"></div>
+            <div class="resize-handle resize-handle-bottom-right"   @mousedown="startResize('bottom-right')"></div>
             <div class="drag-handle" @mousedown="startDrag(index)"></div>
             <div class="window-content">
             <!-- Your window content here -->
@@ -61,14 +61,29 @@
                 console.log("Resizing")
                 const window = this.$refs.window[this.activeWindow];
                 const windowOffsetTop = parseInt(window.style.top);
+                const windowOffsetLeft = parseInt(window.style.left);
 
-                if (this.resizingEdge === "left" || this.resizingEdge === "right") {
-                    window.style.width = `${e.clientX - this.offsetX}px`;
+                const windowHeight = parseInt(window.style.height);
+                const windowWidth = parseInt(window.style.width);
+
+                /* Normal width and height manipulation */ 
+                if (this.resizingEdge === "right") {
+                    window.style.width = `${e.clientX - windowOffsetLeft - 5}px`;
                 }
-                if (this.resizingEdge === "top" || this.resizingEdge === "bottom") {
+                if (this.resizingEdge === "bottom") {
                     window.style.height = `${e.clientY - windowOffsetTop - 62}px`;
+                }
+                if(this.resizingEdge === "bottom-right") {
+                    window.style.width = `${e.clientX - windowOffsetLeft - 5}px`;
+                    window.style.height = `${e.clientY - windowOffsetTop - 62}px`;
+                }
 
-                    
+                /* Offset and width/height manipulation */
+                if(this.resizingEdge === "top") {
+                    window.style.top = `${e.clientY - 62}px`;
+                    window.style.height = `${e.clientY - 62}px`;
+
+                    console.log(window.offsetHeight )
                 }
             },
             stopResize() {
@@ -131,6 +146,11 @@
         /* this will make sure that the active window is on top of the others */
     }
 
+    .window-content {
+        width: 100%;
+        height: 100%;
+    }
+
     .resize-handle {
         position: absolute;
         width: 10px;
@@ -140,7 +160,7 @@
     }
 
     .resize-handle-top {
-        top: -10px;
+        top: -5px;
         left: 50%;
         margin-left: -5px;
         cursor: n-resize;

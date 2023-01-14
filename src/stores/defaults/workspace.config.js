@@ -21,9 +21,12 @@ export default [
                             id: 'Figma',
                             frame: {
                                 width: 720,
-                                height: 640,
+                                height: 440,
                                 x: 120,
                                 y: 50
+                            },
+                            iframe: {
+                                url: 'https://www.w3schools.com/jsref/prop_element_offsettop.asp'
                             }
                         },
                         {

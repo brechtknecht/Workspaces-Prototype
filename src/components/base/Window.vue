@@ -1,6 +1,9 @@
 <template>
-    <div ref="window" style="width: 200px; height: 200px;" @mousedown="startDrag" class="window-inner" :id="properties.id">
-        {{ this.properties }}        
+    <div ref="window" @mousedown="startDrag" class="window-inner" :id="properties.id">
+        <!-- {{ this.properties }}         -->
+        <div v-if="this.properties.iframe">
+            <iframe :src="this.properties.iframe.url" width="100%" height="100%"></iframe>
+        </div>
     </div>
 </template>
 
@@ -19,6 +22,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+    .window-inner {
+        width: 100%;
+        height: 100%;
+        div {
+            width: 100%;
+            height: 100%;
+        }
+    }
     .container {
         height: 100vh; 
         width: 100vw;
