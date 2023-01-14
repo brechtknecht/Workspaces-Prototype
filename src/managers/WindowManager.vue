@@ -15,7 +15,7 @@
             <div class="resize-handle resize-handle-top-right"></div>
             <div class="resize-handle resize-handle-bottom-left"></div>
             <div class="resize-handle resize-handle-bottom-right"   @mousedown="startResize('bottom-right')"></div>
-            <div class="drag-handle" @mousedown="startDrag(index)"></div>
+            <div class="window-header drag-handle" @mousedown="startDrag(index)"></div>
             <div class="window-content">
             <!-- Your window content here -->
             <window :properties="window" />
@@ -147,8 +147,9 @@
     }
 
     .window-content {
+        margin-top: 1.5rem;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 1.5rem);
     }
 
     .resize-handle {
@@ -213,8 +214,11 @@
 
     .drag-handle {
         position: absolute;
-        width: calc(100% - 10px);
-        height: calc(100% - 10px);
+        width: calc(100%);
+        left: 0;
+        top: 0;
+        height: 1.5rem;
+        background: white;
     }
 
     .window-manager {
