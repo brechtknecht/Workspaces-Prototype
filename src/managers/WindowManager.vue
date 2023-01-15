@@ -96,6 +96,9 @@
             /* DRAGGING */
             startDrag(index) {
                 console.log("Start Drag")
+
+                this.$store.commit('disableSidebar', true)
+
                 this.activeWindow = index;
                 this.$refs.window.forEach((w, i) => {
                     if (i !== this.activeWindow) {
@@ -127,6 +130,8 @@
                     const after = this.windows.slice(activeIndex + 1);
                     this.windows = [...before, this.windows[activeIndex], ...after];
                 }
+
+                this.$store.commit('disableSidebar', false)
             },
         },
     };
