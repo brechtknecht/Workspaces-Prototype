@@ -26,7 +26,7 @@ export default [
                                 y: 50
                             },
                             iframe: {
-                                url: 'https://stackoverflow.com/questions/27645735/open-chrome-devtools-in-horizontal-mode'
+                                url: 'https://portfolio.fjal.fi'
                             }
                         },
                         {

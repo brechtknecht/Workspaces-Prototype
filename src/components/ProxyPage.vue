@@ -10,7 +10,7 @@
             }
         },
         mounted() {
-            axios.get(this.$route.params.url)
+            axios.get(this.$route.params.path)
                 .then(response => {
                     this.html = response.data;
                 })

@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@liveblocks/client": "^0.19.2",
+    "@liveblocks/client": "^0.19.5",
     "@vueuse/components": "^9.9.0",
     "@vueuse/core": "^9.9.0",
     "axios": "^1.2.2",

@@ -13,13 +13,23 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 import store from './stores/'
 
+import Desktop from './views/Desktop.vue'
+
+import { createClient } from "@liveblocks/client";
+
+// Create a Liveblocks client
+// Replace this key with your secret key provided at
+// https://liveblocks.io/dashboard/projects/{projectId}/apikeys
+const client = createClient({
+  publicApiKey: "pk_test_eIG6RaAPNwq3pfK_7rJ9ZPW6",
+});
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/', component: App },
+      { path: '/', component: Desktop },
       {
-        path: '/proxy/:url',
+        path: '/proxy/:path',
         component: ProxyPage,
         props: true
       }

@@ -1,194 +1,231 @@
 <template>
-  <div class="spaces-wrapper">
-    <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
-        <window-manager :windows="space.windows"/>
+    <div class="spaces-wrapper">
+        <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
+            <span>{{message}}</span>
+            <window-manager :windows="space.windows" />
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex';
+    import WindowManager from '../managers/WindowManager.vue'
 
-import { mapState } from 'vuex';
-import WindowManager from '../managers/WindowManager.vue'
+    import {
+        createClient
+    } from "@liveblocks/client";
 
-export default {
-  data() {
-      return {
-        users: [],
+    // Create a Liveblocks client
+    // Replace this key with your secret key provided at
+    // https://liveblocks.io/dashboard/projects/{projectId}/apikeys
+    const client = createClient({
+        publicApiKey: "pk_test_eIG6RaAPNwq3pfK_7rJ9ZPW6",
+    });
 
-        lastCrate: 0,
-        nextCrate: 1,
-        preventScrollRead: false,
-        scrollPosition: 0,
-        windowWidth: 0,
-        triggerTime: 1000,
-        observer: null,
-        scrollRight: null,
-        intervals: [],
-        currentWorkspace: 0,
-        scrollTimeout: null,
-        touchEndTimeout: null,
-        
-        isInOverview : true,
+    const roomId = "my-room";
+
+    export default {
+        data() {
+            return {
+                users: [],
+
+                lastCrate: 0,
+                nextCrate: 1,
+                preventScrollRead: false,
+                scrollPosition: 0,
+                windowWidth: 0,
+                triggerTime: 1000,
+                observer: null,
+                scrollRight: null,
+                intervals: [],
+                currentWorkspace: 0,
+                scrollTimeout: null,
+                touchEndTimeout: null,
+
+                isInOverview: true,
+
+                message: "You’re the only one here.",
+
+                windows: ["1", "2", "3"],
+                activeWindow: null,
+            }
+        },
+        components: {
+            WindowManager
+        },
+        computed: {
+            ...mapState([
+                'workspaces',
+                'uiState'
+            ]),
+            numberOfWorkspaces: function () {
+                return this.workspace.properties.spaces.length
+            }
+        },
+        props: {
+            workspace: Object
+        },
+        mounted() {
+            this.initLiveblocks();
+
+            this.$el.addEventListener("wheel", (e) => {
+
+                // When scrolling, force the toobar to be out
+                this.$store.commit('showPersonBar', 'infinite')
+
+                clearTimeout(this.scrollTimeout);
+                clearTimeout(this.touchEndTimeout);
+                this.scrollTimeout = setTimeout(() => {
+                    // console.log("Scrolling has stopped.");
+                    this.handleScroll(e)
+                }, 100);
+            });
+
+            let workspaces = this.$el.children
+
+            let options = {
+                root: this.$el, // relative to document viewport 
+                rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+                threshold: 0.5 // visible amount of item shown in relation to root
+            };
+
+            this.observer = new IntersectionObserver(this.intersectioHandler, options);
+            for (let workspace of workspaces) {
+                this.observer.observe(workspace)
+            }
+        },
+        unmounted() {
+            this._unsubscribeOthers();
+            client.leave(roomId);
+        },
+        destroyed() {
+            this.$el.removeEventListener('scroll', this.handleScroll);
+        },
+        methods: {
+            initLiveblocks() {
+                const room = client.enter(roomId, {
+                    initialPresence: {}
+                });
+                this._unsubscribeOthers = room.subscribe("others", this.onOthersChange);
+            },
+            onOthersChange(others) {
+                if (others.count === 0) {
+                    this.message = "You’re the only one here.";
+                } else if (others.count === 1) {
+                    this.message = "There is one other person here.";
+                } else {
+                    this.message = "There are " + others.count + " other people here.";
+                }
+            },
+            intersectioHandler([entries], observer) {
+                // Sets lastCrate, when the intersection is made
+                let intersectionIndex = entries.target.attributes["data-a"].value
+                this.currentWorkspace = intersectionIndex
+                this.lastCrate = parseInt(intersectionIndex)
+            },
+            handleWheel(event) {
+                if (event.deltaX > 0) {
+                    this.scrollRight = true
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) + 1, this.numberOfWorkspaces)
+                }
+                if (event.deltaX < 0) {
+                    this.scrollRight = false
+                    this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfWorkspaces)
+                }
+
+                this.handleAnimation()
+            },
+            handleScroll(event) {
+                // Any code to be executed when the window is scrolled
+                this.scrollPosition = this.$el.scrollLeft;
+                this.windowWidth = window.innerWidth
+
+                for (let i = 0; i < this.numberOfWorkspaces; i++) {
+                    this.intervals[i] = {
+                        pixel: i * this.windowWidth,
+                        id: i
+                    }
+                }
+
+                this.intervals.forEach((interval) => {
+                    if (this.$el.scrollLeft > interval.pixel) {
+                        this.lastCrate = interval.id
+                        return
+                    }
+                })
+
+                // Determine the closest edge
+                // console.log("currentworkspace:", this.currentWorkspace)
+
+                let closestCorner = this.$el.scrollLeft / this.windowWidth
+                let scrollTo = (Math.round(closestCorner) * (this.windowWidth + (40)))
+
+                this.$el.scrollTo({
+                    left: scrollTo,
+                    top: 0,
+                    behavior: 'smooth'
+                })
+
+                // When scrolling is finished, hide the toolbar again
+                this.$store.commit('hidePersonBarWithDelay', 1500)
 
 
+            },
+            handleAnimation() {
+                // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))
+                let scrollModifier = (this.$el.scrollLeft % this.windowWidth)
 
-        windows: ["1", "2", "3"],
-        activeWindow: null,
-      }
-  },
-  components: {
-    WindowManager
-  },
-  computed: {
-      ...mapState([
-          'workspaces',
-          'uiState'
-      ]),
-      numberOfWorkspaces: function () {
-          return this.workspace.properties.spaces.length
-      }
-  },
-  props: {
-    workspace: Object
-  },
-  mounted() {
-      this.$el.addEventListener("wheel", (e) => {
+                // Add or remove styles from the elements
 
-          // When scrolling, force the toobar to be out
-          this.$store.commit('showPersonBar', 'infinite')
-
-          clearTimeout(this.scrollTimeout);
-          clearTimeout(this.touchEndTimeout);
-          this.scrollTimeout = setTimeout(() => {
-              // console.log("Scrolling has stopped.");
-              this.handleScroll(e)
-          }, 100);
-      });
-
-      let workspaces = this.$el.children
-
-      let options = {
-          root: this.$el, // relative to document viewport 
-          rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-          threshold: 0.5 // visible amount of item shown in relation to root
-      };
-
-      this.observer = new IntersectionObserver(this.intersectioHandler, options);
-      for (let workspace of workspaces) {
-          this.observer.observe(workspace)
-      }
-  },
-  destroyed() {
-      this.$el.removeEventListener('scroll', this.handleScroll);
-  },
-  methods: {
-      intersectioHandler([entries], observer) {
-          // Sets lastCrate, when the intersection is made
-          let intersectionIndex = entries.target.attributes["data-a"].value
-          this.currentWorkspace = intersectionIndex
-          this.lastCrate = parseInt(intersectionIndex)
-      },
-      handleWheel(event) {
-          if (event.deltaX > 0) {
-              this.scrollRight = true
-              this.nextCrate = this.mod(parseInt(this.lastCrate) + 1, this.numberOfWorkspaces)
-          }
-          if (event.deltaX < 0) {
-              this.scrollRight = false
-              this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfWorkspaces)
-          }
-
-          this.handleAnimation()
-      },
-      handleScroll(event) {
-          // Any code to be executed when the window is scrolled
-          this.scrollPosition = this.$el.scrollLeft;
-          this.windowWidth = window.innerWidth
-
-          for(let i = 0; i < this.numberOfWorkspaces; i++) {
-              this.intervals[i] = {
-                  pixel: i * this.windowWidth,
-                  id: i
-              }
-          }
-
-          this.intervals.forEach((interval) => {
-              if(this.$el.scrollLeft > interval.pixel) {
-                  this.lastCrate = interval.id
-                  return
-              }
-          })
-          
-          // Determine the closest edge
-          // console.log("currentworkspace:", this.currentWorkspace)
-
-          let closestCorner = this.$el.scrollLeft / this.windowWidth
-          let scrollTo = (Math.round(closestCorner) * (this.windowWidth + (40)))
-
-          this.$el.scrollTo({
-              left: scrollTo,
-              top: 0,
-              behavior: 'smooth'
-          })
-
-          // When scrolling is finished, hide the toolbar again
-          this.$store.commit('hidePersonBarWithDelay', 1500)
-
-
-      },
-      handleAnimation() {
-          // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))
-          let scrollModifier = (this.$el.scrollLeft % this.windowWidth)
-          
-          // Add or remove styles from the elements
-
-          // this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]').style.clipPath = "inset( 0 0 " + scrollModifier + "px 0)"
-      },
-      mod(n, m) {
-          return ((n % m) + m) % m;
-      }
-  }
-}
-
+                // this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]').style.clipPath = "inset( 0 0 " + scrollModifier + "px 0)"
+            },
+            mod(n, m) {
+                return ((n % m) + m) % m;
+            }
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
+    .window-wrapper {
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #ccc;
+        padding: 20px;
+        width: 50px;
+        height: 50px;
+        z-index: 10;
+        /* this will make sure that the active window is on top of the others */
+    }
 
-.window-wrapper {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px #ccc;
-  padding: 20px;
-  width: 50px;
-  height: 50px;
-  z-index: 10; /* this will make sure that the active window is on top of the others */
-}
-.spaces-wrapper {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  max-height: 100vh;
-  
-  .space {
-    min-width: 100vw;
-    width: 100vw !important;
-    height: 100vh;
-    background: url('/assets/macOS-Background.png');
-    background-size: cover;
+    .spaces-wrapper {
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        max-height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center
-  }
-  .space:not(:last-child) {
-      margin-right: 40px;
-  }
-}
+        .space {
+            min-width: 100vw;
+            width: 100vw !important;
+            height: 100vh;
+            background: url('/assets/macOS-Background.png');
+            background-size: cover;
 
-.window {
-    position: absolute;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .space:not(:last-child) {
+            margin-right: 40px;
+        }
+    }
+
+    .window {
+        position: absolute;
+    }
 </style>
