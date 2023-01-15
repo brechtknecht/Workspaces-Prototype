@@ -2,7 +2,7 @@
     <div ref="window" @mousedown="startDrag" class="window-inner" :id="properties.id">
         <!-- {{ this.properties }}         -->
         <div v-if="this.properties.iframe">
-            <iframe :src="this.properties.iframe.url" width="100%" height="100%"></iframe>
+            <iframe :src="this.proxyUrl" width="100%" height="100%"></iframe>
         </div>
     </div>
 </template>
@@ -17,6 +17,12 @@ export default {
     },
     props: {
         properties : Object
+    },
+    computed: {
+        proxyUrl() {
+            if(typeof this.properties.iframe === 'undefined') {return}
+            return '/proxy/' + this.properties.iframe.url
+        }
     }
 }
 </script>
