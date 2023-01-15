@@ -65,6 +65,7 @@ export default [
                 },
             ],
             multiplayer: {
+                roomId: '88b0fca8',
                 isMultiplayerSession: false,
                 attendants: [],
                 multiplayerWindows: []
@@ -133,6 +134,7 @@ export default [
                 },
             ],
             multiplayer: {
+                roomId: '88b2dfdc',
                 isMultiplayerSession: false,
                 attendants: [],
                 multiplayerWindows: []
@@ -201,6 +203,7 @@ export default [
                 },
             ],
             multiplayer: {
+                roomId: '9f04c962',
                 isMultiplayerSession: false,
                 attendants: [],
                 multiplayerWindows: []

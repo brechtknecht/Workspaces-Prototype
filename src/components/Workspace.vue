@@ -24,8 +24,6 @@
         publicApiKey: "pk_test_eIG6RaAPNwq3pfK_7rJ9ZPW6",
     });
 
-    const roomId = "my-room";
-
     export default {
         data() {
             return {
@@ -62,6 +60,9 @@
             ]),
             numberOfWorkspaces: function () {
                 return this.workspace.properties.spaces.length
+            },
+            roomId () {
+                return this.workspace.properties.multiplayer.roomId
             }
         },
         props: {
@@ -98,14 +99,14 @@
         },
         unmounted() {
             this._unsubscribeOthers();
-            client.leave(roomId);
+            client.leave(this.roomId);
         },
         destroyed() {
             this.$el.removeEventListener('scroll', this.handleScroll);
         },
         methods: {
             initLiveblocks() {
-                const room = client.enter(roomId, {
+                const room = client.enter(this.roomId, {
                     initialPresence: {}
                 });
                 this._unsubscribeOthers = room.subscribe("others", this.onOthersChange);
