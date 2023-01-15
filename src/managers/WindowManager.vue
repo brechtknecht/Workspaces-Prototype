@@ -217,13 +217,13 @@
         cursor: se-resize;
     }
 
-    .drag-handle {
+    .drag-handle, .window-header {
         position: absolute;
         width: calc(100%);
         left: 0;
         top: 0;
-        height: 1.5rem;
-        background: white;
+        height: 1.75rem;
+        background: rgba(0,0,0,.05)
     }
 
     .window-manager {

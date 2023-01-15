@@ -20,9 +20,15 @@
             </div>
         </div>
         <div class="right">
-            <div class="menu-element currentWorkspace" @click="toggleOverview">
-                <span>{{ workspaces[workspace.currentInt].properties.title }}</span>
+            <div class="workspace-item-wrapper">
+                <div class="currentWorkspace menu-element" @click="toggleOverview">
+                    <span>{{ workspaces[workspace.currentInt].properties.title }}</span>
+                </div>
+                <div class="workspace-options-wrapper">
+                    <workspace-options />
+                </div>
             </div>
+            
             <div class="menu-element sf-symbols">
                 <p class="p1">􀪷</p>
                 <p class="p1">􀙇</p>
@@ -39,7 +45,12 @@
 <script>
 import { mapState } from 'vuex' 
 
+import WorkspaceOptions from './fragments/AppBar/WorkspaceOptions.vue'
+
 export default {
+    components: {
+        WorkspaceOptions
+    },
     computed:  {
         ...mapState([
             'workspace',
@@ -68,7 +79,7 @@ export default {
         max-width: calc(100vw - 2rem);
 
         .right {
-            .menu-element:not(:last-child) {
+            div:not(:last-child) {
                 margin-right: .5em;
             }
         }
@@ -110,8 +121,20 @@ export default {
                     }
                 }
             }
+        }
 
+        .workspace-item-wrapper {
+            position: relative;
+        }
 
+        .workspace-options-wrapper {
+            position: absolute;
+            top: calc(100% + .5rem);
+            display: block;
+            width: calc(100% - 1.5rem);
+            background: rgba(255,255,255,.8);
+            border-radius: 12px;
+            padding: .5rem;
         }
     }
 </style>
