@@ -38,7 +38,7 @@
                 observer: null,
                 scrollRight: null,
                 intervals: [],
-                currentWorkspace: 0,
+                currentSpace: 0,
                 scrollTimeout: null,
                 touchEndTimeout: null,
 
@@ -123,8 +123,10 @@
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
                 let intersectionIndex = entries.target.attributes["data-a"].value
-                this.currentWorkspace = intersectionIndex
+                this.currentSpace = intersectionIndex
                 this.lastCrate = parseInt(intersectionIndex)
+
+                this.$store.commit('setCurrentSpace', this.currentSpace)
             },
             handleWheel(event) {
                 if (event.deltaX > 0) {
@@ -158,7 +160,7 @@
                 })
 
                 // Determine the closest edge
-                // console.log("currentworkspace:", this.currentWorkspace)
+                // console.log("currentSpace:", this.currentSpace)
 
                 let closestCorner = this.$el.scrollLeft / this.windowWidth
                 let scrollTo = (Math.round(closestCorner) * (this.windowWidth + (40)))
