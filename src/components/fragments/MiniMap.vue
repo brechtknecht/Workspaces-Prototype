@@ -34,6 +34,7 @@ export default {
         border: .5px solid rgba(255,255,255, .4);
         border-radius: 12px;
         padding: .5rem;
+        backdrop-filter: blur(4px);
         .minimap-workspace {
             display: flex;
             gap: .5rem;
@@ -43,7 +44,7 @@ export default {
                 width: 52px;
                 height: 32px;
                 border-radius: 8px;
-                border-bottom: 1px solid black;
+                border-bottom: 1px solid rgba(0,0,0,.2);
                 background: white;
             }
         }

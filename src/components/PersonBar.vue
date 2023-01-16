@@ -40,6 +40,8 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        padding: 0;
+        margin: 0;
     }
 
     .person-bar {
@@ -55,7 +57,14 @@ export default {
         .person-bar-wrapper {
             transition: 250ms; 
             animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
-            transform: translateX(100%);
+            transform: translateX(110%);
+
+            background: rgba(255,255,255, .4);
+            border: .5px solid rgba(255,255,255, .4);
+            border-radius: 28px;
+            padding: 1rem;
+
+            backdrop-filter: blur(8px);
             &.forceOut {
                 transform: translateX(0) !important;
             }
