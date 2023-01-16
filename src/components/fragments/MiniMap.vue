@@ -1,0 +1,51 @@
+<template>
+    <div class="minimap">
+        <div v-for="workspace in workspaces" :key="workspace.id" class="minimap-workspaces">
+            <div class="minimap-workspace">
+                <div v-for="space in workspace.properties.spaces" :key="space.id" class="minimap-spaces">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+import {mapState} from 'vuex'
+export default {
+    computed:  {
+        ...mapState([
+            'workspaces'
+        ])
+    },
+}
+</script>
+
+<style lang="scss">
+    .minimap {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        background: rgba(255,255,255, .15);
+        border: .5px solid rgba(255,255,255, .4);
+        border-radius: 12px;
+        padding: .5rem;
+        .minimap-workspace {
+            display: flex;
+            gap: .5rem;
+            .minimap-spaces {
+                width: 52px;
+                height: 32px;
+                width: 52px;
+                height: 32px;
+                border-radius: 8px;
+                border-bottom: 1px solid black;
+                background: white;
+            }
+        }
+    }
+</style>
