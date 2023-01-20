@@ -17,6 +17,8 @@ import Desktop from './views/Desktop.vue'
 
 import { createClient } from "@liveblocks/client";
 
+import VueScrollTo from 'vue-scrollto'
+
 
 
 // Create a Liveblocks client
@@ -39,8 +41,22 @@ const router = createRouter({
   })
 
 
+
 createApp(App)
     .use(router)
     .use(store)
     .use(VueAxios, axios)
+    .use(VueScrollTo, {
+      container: "body",
+      duration: 500,
+      easing: "ease",
+      offset: 0,
+      force: true,
+      cancelable: true,
+      onStart: false,
+      onDone: false,
+      onCancel: false,
+      x: false,
+      y: true
+    })
     .mount('#app')

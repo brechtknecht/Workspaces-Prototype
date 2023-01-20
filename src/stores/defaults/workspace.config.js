@@ -24,7 +24,7 @@ export default [
             id: "0000-0000",
             spaces: [
                 {
-                    id: '9375-11ed-a1eb',
+                    id: '4935-32sd-a1eb',
                     windows: [
                         {
                             id: 'Tasty',
@@ -33,20 +33,6 @@ export default [
                                 height: 330,
                                 x: 400,
                                 y: 100
-                            }
-                        }
-                    ]  
-                },
-                {
-                    id: '9376-11ed-a1eb',
-                    windows: [
-                        {
-                            id: 'Miro',
-                            frame: {
-                                width: 460,
-                                height: 330,
-                                x: 100,
-                                y: 70
                             }
                         }
                     ]  

@@ -2,7 +2,7 @@
     <Transition name="fade">
         <div v-if="!this.uiState.isInOverview" class="minimap">
             <div v-for="workspace in workspaces" :key="workspace.id" class="minimap-workspaces">
-                <div class="minimap-workspace">
+                <div class="minimap-workspace" :class="{private: workspace.properties.type == 'Private' ? true : false}">
                     <div v-for="space in workspace.properties.spaces" :key="space.id" class="minimap-spaces">
                         
                     </div>
@@ -61,6 +61,13 @@ export default {
                 border-radius: 8px;
                 border-bottom: 1px solid rgba(0,0,0,.2);
                 background: white;
+            }
+
+            &.private {
+                .minimap-spaces {
+                    background: rgba(0,0,0,.6);
+                    border-bottom: 1px solid rgba(255,255,255, 0.2);
+                }
             }
         }
     }

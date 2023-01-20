@@ -1,6 +1,6 @@
 <template>
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
-        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace"
+        <div v-for="(workspace, index) in workspaces" :key="workspace.id" :id="index" class="workspace"
             :class="{private : workspace.properties.type == 'Private' ? true: false}" :data-a="index"
             @click="overviewMoveToWorkspace($event, index)">
             <Workspace :workspaceObject="workspace" :index="index" />
@@ -94,27 +94,26 @@
                 }
             },
             moveUp() {
-                let upperScrollPos = 0
+                let offset = 0
                 if (this.lastCrate > 0) {
-                    upperScrollPos = this.$el.children[this.lastCrate - 1].offsetTop;
-                    console.log(upperScrollPos)
+                    offset = this.$el.querySelector(`[id='${this.lastCrate - 1}']`).offsetTop
                 }
 
                 this.$el.scrollTo({
-                    top: upperScrollPos,
+                    top: offset,
                     behavior: 'smooth'
                 })
 
                 this.$store.commit('showPersonBar', 3500)
             },
             moveDown() {
-                let upperScrollPos = 0
+                let offset = 0
                 if (this.lastCrate < this.numberOfWorkspaces) {
-                    upperScrollPos = this.$el.children[this.lastCrate + 1].offsetTop;
+                    offset = this.$el.querySelector(`[id='${this.lastCrate + 1}']`).offsetTop
                 }
 
                 this.$el.scrollTo({
-                    top: upperScrollPos,
+                    top: offset,
                     behavior: 'smooth'
                 })
 
@@ -275,7 +274,7 @@
             background-size: cover;
             display: block;
 
-            &.private > .spaces-wrapper > .space {
+            &.private>.spaces-wrapper>.space {
                 background-size: cover !important;
                 background: url('/assets/macOS-Private-Background.png')
             }
