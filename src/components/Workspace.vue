@@ -62,10 +62,10 @@
                 'uiState'
             ]),
             numberOfWorkspaces: function () {
-                return this.workspaceObject.properties.spaces.length
+                return this.workspaceObject.properties.spaces?.length
             },
             roomId () {
-                return this.workspaceObject.properties.multiplayer.roomId
+                return this.workspaceObject.properties.multiplayer?.roomId
             }
         },
         props: {

@@ -1,6 +1,6 @@
 <template>
     <div class="person-wrapper">
-        <div class="person">
+        <div class="person" refs="myDraggable">
             <div class="image" :style="{
                 'background': 'url(' + this.person.image + ')',
                 'border': '2.5px solid' + this.person.color
@@ -11,10 +11,11 @@
 </template>
 
 <script>
+
 export default {
     props: {
         person: Object
-    }
+    },
 }
 </script>
 

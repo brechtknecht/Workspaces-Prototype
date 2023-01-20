@@ -1,13 +1,17 @@
 <template>
-    <div v-if="!uiState.personBarDisabled" class="person-bar">
-        <div class="person-bar-wrapper" :class={forceOut:isForcedOut}>
-            <transition-group name="list" tag="ul">
-                <div v-for="(member, index) in currentWorkspace.properties.members" v-bind:key="member.name" class="list-complete-item">
-                    <Person :person="member"/>
-                </div>
-            </transition-group>
+    <Transition name="fade">
+    <div v-if="currentWorkspace.properties.members">
+        <div v-if="!uiState.personBarDisabled" class="person-bar">
+            <div class="person-bar-wrapper" :class={forceOut:isForcedOut}>
+                <transition-group name="list" tag="ul">
+                    <div v-for="(member, index) in currentWorkspace.properties.members" v-bind:key="member.name" class="list-complete-item">
+                        <Person :person="member"/>
+                    </div>
+                </transition-group>
+            </div>
         </div>
     </div>
+</Transition>
 </template>
 
 <script>

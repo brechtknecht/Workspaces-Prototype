@@ -16,10 +16,48 @@ let workspace3 = persons.filter(person => {
 
 
 // workspace: {
-export default [ 
+export default [
+    {
+        properties: {
+            title: "Private Space",
+            type: "Private",
+            id: "0000-0000",
+            spaces: [
+                {
+                    id: '9375-11ed-a1eb',
+                    windows: [
+                        {
+                            id: 'Tasty',
+                            frame: {
+                                width: 460,
+                                height: 330,
+                                x: 400,
+                                y: 100
+                            }
+                        }
+                    ]  
+                },
+                {
+                    id: '9376-11ed-a1eb',
+                    windows: [
+                        {
+                            id: 'Miro',
+                            frame: {
+                                width: 460,
+                                height: 330,
+                                x: 100,
+                                y: 70
+                            }
+                        }
+                    ]  
+                },
+            ],
+        }
+    },
     {
         properties: {
             title: "Design Workspace",
+            type: "Workspace",
             id: "0227-4a90",
             members: workspace1,
             spaces: [
@@ -85,6 +123,7 @@ export default [
         properties: {
             id: "e272-4423",
             title: "Development Workspace",
+            type: "Workspace",
             members: workspace2,
             spaces: [
                 {
@@ -145,6 +184,7 @@ export default [
     {
         properties: {
             title: "Review Workspace",
+            type: "Workspace",
             id: '66ef-466a',
             members: workspace3,
             spaces: [

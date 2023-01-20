@@ -1,14 +1,20 @@
 <template>
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
-        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace" :data-a="index" @click="overviewMoveToWorkspace($event, index)">
-            <Workspace :workspaceObject="workspace" :index="index"/>
+        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace"
+            :class="{private : workspace.properties.type == 'Private' ? true: false}" :data-a="index"
+            @click="overviewMoveToWorkspace($event, index)">
+            <Workspace :workspaceObject="workspace" :index="index" />
         </div>
     </div>
 </template>
 
 <script>
-    import { lsonToJson } from '@liveblocks/core';
-import { mapState } from 'vuex';
+    import {
+        lsonToJson
+    } from '@liveblocks/core';
+    import {
+        mapState
+    } from 'vuex';
     import Workspace from './Workspace.vue'
 
     export default {
@@ -26,11 +32,11 @@ import { mapState } from 'vuex';
                 currentWorkspace: 0,
                 scrollTimeout: null,
                 touchEndTimeout: null,
-                
-                isInOverview : true
+
+                isInOverview: true
             }
         },
-        components : {
+        components: {
             Workspace
         },
         computed: {
@@ -87,13 +93,13 @@ import { mapState } from 'vuex';
                     this.moveUp()
                 }
             },
-            moveUp () {
+            moveUp() {
                 let upperScrollPos = 0
-                if(this.lastCrate > 0) {
+                if (this.lastCrate > 0) {
                     upperScrollPos = this.$el.children[this.lastCrate - 1].offsetTop;
                     console.log(upperScrollPos)
                 }
-            
+
                 this.$el.scrollTo({
                     top: upperScrollPos,
                     behavior: 'smooth'
@@ -103,7 +109,7 @@ import { mapState } from 'vuex';
             },
             moveDown() {
                 let upperScrollPos = 0
-                if(this.lastCrate < this.numberOfWorkspaces) {
+                if (this.lastCrate < this.numberOfWorkspaces) {
                     upperScrollPos = this.$el.children[this.lastCrate + 1].offsetTop;
                 }
 
@@ -132,14 +138,14 @@ import { mapState } from 'vuex';
                     this.nextCrate = this.mod(parseInt(this.lastCrate) - 1, this.numberOfWorkspaces)
                 }
 
-               this.handleAnimation()
+                this.handleAnimation()
             },
             handleScroll(event) {
                 // Any code to be executed when the window is scrolled
                 this.scrollPosition = this.$el.scrollTop;
                 this.windowHeight = window.innerHeight
 
-                for(let i = 0; i < this.numberOfWorkspaces; i++) {
+                for (let i = 0; i < this.numberOfWorkspaces; i++) {
                     this.intervals[i] = {
                         pixel: i * this.windowHeight,
                         id: i
@@ -147,12 +153,12 @@ import { mapState } from 'vuex';
                 }
 
                 this.intervals.forEach((interval) => {
-                    if(this.$el.scrollTop > interval.pixel) {
+                    if (this.$el.scrollTop > interval.pixel) {
                         this.lastCrate = interval.id
                         return
                     }
                 })
-                
+
                 // Determine the closest edge
                 // console.log("currentworkspace:", this.currentWorkspace)
 
@@ -171,21 +177,23 @@ import { mapState } from 'vuex';
             handleAnimation() {
                 // console.log(this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]'))
                 let scrollModifier = (this.$el.scrollTop % this.windowHeight)
-                
+
                 // Add or remove styles from the elements
 
                 // this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]').style.clipPath = "inset( 0 0 " + scrollModifier + "px 0)"
             },
-            overviewMoveToWorkspace (e, index) {
-                if(!this.uiState.isInOverview) { return }
+            overviewMoveToWorkspace(e, index) {
+                if (!this.uiState.isInOverview) {
+                    return
+                }
 
                 let scrollTo = (index + 1) * (window.innerHeight + (40))
 
-                
+
                 this.$el.scrollTo({
                     top: scrollTo,
                 })
-                
+
                 this.$store.commit('toggleWorkspacesOverview')
             },
             mod(n, m) {
@@ -205,34 +213,39 @@ import { mapState } from 'vuex';
         border-radius: 40px;
         top: -25vh;
         transform-origin: center center;
+
         .workspace {
             position: relative;
             height: auto !important;
+
             .space {
                 border-radius: 40px;
                 transition: border-radius .1s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
+
             &:hover {
                 .space {
                     border-radius: 40px;
-                    box-shadow:inset 0px 0px 0px 10px #f00;
+                    box-shadow: inset 0px 0px 0px 10px #f00;
                 }
+
                 &:after {
-                        position: absolute;
-                        top: -35px;
-                        right: -35px; 
-                        content: '';
-                        display: block;
-                        width: 100px;
-                        height: 100px;
-                        background: red;
-                        border-radius: 50%;
-                        z-index: 10000;
-                    }
+                    position: absolute;
+                    top: -35px;
+                    right: -35px;
+                    content: '';
+                    display: block;
+                    width: 100px;
+                    height: 100px;
+                    background: red;
+                    border-radius: 50%;
+                    z-index: 10000;
+                }
             }
         }
 
     }
+
     .workspaces {
         position: relative;
         overflow-y: scroll;
@@ -241,9 +254,9 @@ import { mapState } from 'vuex';
         max-width: 100vw;
         scroll-behavior: smooth;
         height: 100vh;
-        transition: .4s; 
+        transition: .4s;
         animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-        
+
         display: flex;
         flex-direction: column;
 
@@ -258,9 +271,14 @@ import { mapState } from 'vuex';
         .workspace {
             width: 100vw;
             height: 100vh;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
             background-size: cover;
             display: block;
+
+            &.private > .spaces-wrapper > .space {
+                background-size: cover !important;
+                background: url('/assets/macOS-Private-Background.png')
+            }
 
             &__image {
                 position: relative;

@@ -17,6 +17,8 @@ import Desktop from './views/Desktop.vue'
 
 import { createClient } from "@liveblocks/client";
 
+
+
 // Create a Liveblocks client
 // Replace this key with your secret key provided at
 // https://liveblocks.io/dashboard/projects/{projectId}/apikeys
@@ -37,4 +39,8 @@ const router = createRouter({
   })
 
 
-createApp(App).use(router).use(store).use(VueAxios, axios).mount('#app')
+createApp(App)
+    .use(router)
+    .use(store)
+    .use(VueAxios, axios)
+    .mount('#app')

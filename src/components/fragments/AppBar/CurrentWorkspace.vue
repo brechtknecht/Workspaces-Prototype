@@ -1,11 +1,14 @@
 <template>
     <div class="current-workspace">
         {{ this.workspace.properties.title }}
-        <div class="image-wrapper">
-            <div v-for="person in this.workspace.properties.members.slice(0, 3)" :key="person.name" class="image" :style="{
+        <div class="image-wrapper" v-if="this.workspace.properties.members">
+            <div v-for="person in this.workspace.properties.members?.slice(0, 3)" :key="person.name" class="image" :style="{
                     'background': 'url(' + person.image + ')',
                     'border': '2.5px solid' + person.color
             }"></div>
+        </div>
+        <div v-if="this.workspace.properties.type == 'Private'" class="menu-element sf-symbols">
+            <p class="p1">􀎡</p>
         </div>
     </div>
 </template>
