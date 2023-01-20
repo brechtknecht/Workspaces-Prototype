@@ -22,10 +22,10 @@
         <div class="right">
             <Transition name="list" mode="out-in">
             <div class="workspace-item-wrapper" :key="workspace.currentInt">
-                <div class="currentWorkspace menu-element" @click="toggleOverview">
+                <div class="currentWorkspace menu-element" @click="toggleWorkspaceOptions">
                     <current-workspace :workspace="workspaces[workspace.currentInt]" />
                 </div>
-                <div class="workspace-options-wrapper">
+                <div v-if="showWorkspaceOptions" class="workspace-options-wrapper">
                     <workspace-options />
                 </div>
             </div>
@@ -55,6 +55,11 @@ export default {
         WorkspaceOptions,
         CurrentWorkspace
     },
+    data() {
+        return {
+            showWorkspaceOptions: false
+        }
+    },
     computed:  {
         ...mapState([
             'workspace',
@@ -62,8 +67,9 @@ export default {
         ])
     },
     methods: {
-        toggleOverview () {
-            this.$store.commit('toggleWorkspacesOverview')
+        toggleWorkspaceOptions () {
+            console.log(this.showWorkspaceOptions)
+            this.showWorkspaceOptions = !this.showWorkspaceOptions
         }
     }
 }
@@ -75,13 +81,13 @@ export default {
     .list-enter-active,
     .list-leave-active {
         position: relative;
-        transition: all 0.15s ease;
+        transition: all 0.18s ease;
     }
 
     .list-enter-from{
         position: relative;
         opacity: 0;
-        transform: translateY(1rem);
+        transform: translateY(.5rem);
     }
 
     .list-leave-to {

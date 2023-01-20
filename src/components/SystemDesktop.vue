@@ -98,7 +98,7 @@
                     behavior: 'smooth'
                 })
 
-                this.$store.commit('showPersonBar', 1500)
+                this.$store.commit('showPersonBar', 3500)
             },
             moveDown() {
                 let upperScrollPos = 0
@@ -111,7 +111,7 @@
                     behavior: 'smooth'
                 })
 
-                this.$store.commit('showPersonBar', 1500)
+                this.$store.commit('showPersonBar', 3500)
             },
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made
