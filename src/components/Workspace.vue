@@ -74,6 +74,8 @@
         mounted() {
             this.initLiveblocks();
 
+            window.addEventListener('keydown', this.handleShortcuts);
+
             this.$el.addEventListener("wheel", (e) => {
 
                 // When scrolling, force the toobar to be out
@@ -107,6 +109,7 @@
         },
         destroyed() {
             this.$el.removeEventListener('scroll', this.handleScroll);
+            window.removeEventListener("keydown", this.handleShortcuts);
         },
         methods: {
             initLiveblocks() {
@@ -123,6 +126,45 @@
                 } else {
                     this.message = "There are " + others.count + " other people here.";
                 }
+            },
+
+            handleShortcuts(e) {
+                if (e.shiftKey && e.key === 'ArrowRight') {
+                    console.log('Shortcut Right Triggered!')
+                    this.moveLeading()
+                }
+                
+                if (e.shiftKey && e.key === 'ArrowLeft') {
+                    console.log('Shortcut Left Triggered!')
+                    this.moveTrailing()
+                }
+            },
+            moveTrailing () {
+                let upperScrollPos = 0
+                if(this.lastCrate > 0) {
+                    upperScrollPos = this.$el.children[this.lastCrate - 1].offsetLeft;
+                    console.log(upperScrollPos)
+                }
+            
+                this.$el.scrollTo({
+                    left: upperScrollPos,
+                    behavior: 'smooth'
+                })
+
+                this.$store.commit('showPersonBar', 1500)
+            },
+            moveLeading() {
+                let upperScrollPos = 0
+                if(this.lastCrate < this.numberOfWorkspaces) {
+                    upperScrollPos = this.$el.children[this.lastCrate + 1].offsetLeft;
+                }
+
+                this.$el.scrollTo({
+                    left: upperScrollPos,
+                    behavior: 'smooth'
+                })
+
+                this.$store.commit('showPersonBar', 1500)
             },
             intersectioHandler([entries], observer) {
                 // Sets lastCrate, when the intersection is made

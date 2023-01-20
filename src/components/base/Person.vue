@@ -1,8 +1,11 @@
 <template>
     <div class="person-wrapper">
         <div class="person">
-            <div class="image" :style="{'background': 'url(' + this.person.image + ')'}"></div>
-            <h4  class="name">{{ this.person.name }}</h4>
+            <div class="image" :style="{
+                'background': 'url(' + this.person.image + ')',
+                'border': '2.5px solid' + this.person.color
+            }"></div>
+            <h4  class="name" >{{ this.person.name }}</h4>
         </div>
     </div>
 </template>
@@ -42,8 +45,6 @@ export default {
                 justify-content: center;
                 align-items: center;
                 isolation: isolate;
-
-                border: 2.5px solid #FF5A5A;
                 border-radius: 100%;
 
                 width: 28px;
