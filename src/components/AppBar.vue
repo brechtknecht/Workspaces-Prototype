@@ -1,6 +1,6 @@
 <template>
     <Transition name="move-top">
-        <div v-if="!uiState.isInOverview" class="app-bar">
+        <div v-if="!uiState.isInOverview" class="app-bar" :class="{private: workspaces[workspace.currentInt].properties.type == 'Private' ? true : false}">
             <div class="left">
                 <div class="menu-element">
                     <div class="app-entry">
@@ -132,6 +132,17 @@
         width: 100%;
         max-width: calc(100vw - 2rem);
 
+        &.private {
+            .left, .right {
+                .menu-element {
+                    background: rgba(0,0,0,.6);
+                    p, span {
+                        color: rgba(255, 255,255, .9);
+                    }
+                }
+            }
+        }
+
         .right {
             div:not(:last-child) {
                 margin-right: .5em;
@@ -153,6 +164,8 @@
                 animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
 
                 &.sf-symbols {
+                    display: flex;
+                    align-items: center;
                     p:not(:last-child) {
                         margin-right: .75rem;
                     }
