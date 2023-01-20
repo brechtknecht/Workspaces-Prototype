@@ -170,30 +170,7 @@ export default [
                             }
                         }
                     ]  
-                },
-                {
-                    id: '5675-11ed-c1eb',
-                    windows: [
-                        {
-                            id: 'Trello',
-                            frame: {
-                                width: 720,
-                                height: 640,
-                                x: 120,
-                                y: 50
-                            }
-                        },
-                        {
-                            id: 'Zoom',
-                            frame: {
-                                width: 460,
-                                height: 330,
-                                x: 400,
-                                y: 300
-                            }
-                        }
-                    ]  
-                },
+                }
             ],
             multiplayer: {
                 roomId: '9f04c962',

@@ -20,15 +20,17 @@
             </div>
         </div>
         <div class="right">
-            <div class="workspace-item-wrapper">
+            <Transition name="list" mode="out-in">
+            <div class="workspace-item-wrapper" :key="workspace.currentInt">
                 <div class="currentWorkspace menu-element" @click="toggleOverview">
-                    <span>{{ workspaces[workspace.currentInt].properties.title }}</span>
+                    <current-workspace :workspace="workspaces[workspace.currentInt]" />
                 </div>
                 <div class="workspace-options-wrapper">
                     <workspace-options />
                 </div>
             </div>
-            
+            </Transition>
+                
             <div class="menu-element sf-symbols">
                 <p class="p1">􀪷</p>
                 <p class="p1">􀙇</p>
@@ -46,10 +48,12 @@
 import { mapState } from 'vuex' 
 
 import WorkspaceOptions from './fragments/AppBar/WorkspaceOptions.vue'
+import CurrentWorkspace from './fragments/AppBar/CurrentWorkspace.vue'
 
 export default {
     components: {
-        WorkspaceOptions
+        WorkspaceOptions,
+        CurrentWorkspace
     },
     computed:  {
         ...mapState([
@@ -65,7 +69,33 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+    .list-move, /* apply transition to moving elements */
+    .list-enter-active,
+    .list-leave-active {
+        position: relative;
+        transition: all 0.15s ease;
+    }
+
+    .list-enter-from{
+        position: relative;
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+
+    .list-leave-to {
+        position: relative;
+        opacity: 0;
+    }
+
+    /* ensure leaving items are taken out of layout flow so that moving
+    animations can be calculated correctly. */
+    .list-leave-active {
+        position: relative;
+        opacity: 0;
+    }
+
     .app-bar {
         position: fixed;
         margin: .75rem;
