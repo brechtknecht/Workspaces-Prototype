@@ -1,13 +1,15 @@
 <template>
-    <div class="minimap">
-        <div v-for="workspace in workspaces" :key="workspace.id" class="minimap-workspaces">
-            <div class="minimap-workspace">
-                <div v-for="space in workspace.properties.spaces" :key="space.id" class="minimap-spaces">
-                    
+    <Transition name="fade">
+        <div v-if="!this.uiState.isInOverview" class="minimap">
+            <div v-for="workspace in workspaces" :key="workspace.id" class="minimap-workspaces">
+                <div class="minimap-workspace">
+                    <div v-for="space in workspace.properties.spaces" :key="space.id" class="minimap-spaces">
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </Transition>
 </template>
 
 <script>
@@ -16,13 +18,24 @@ import {mapState} from 'vuex'
 export default {
     computed:  {
         ...mapState([
-            'workspaces'
+            'workspaces',
+            'uiState'
         ])
     },
 }
 </script>
 
 <style lang="scss">
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.22s ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
+
     .minimap {
         position: fixed;
         bottom: 1.5rem;

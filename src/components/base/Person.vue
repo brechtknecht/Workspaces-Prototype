@@ -21,7 +21,7 @@ export default {
 <style lang="scss">
     .person-wrapper {
         border: 0.5px solid rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
+        border-radius: 18px;
 
         .person {
             /* Auto layout */

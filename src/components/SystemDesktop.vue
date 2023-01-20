@@ -1,13 +1,14 @@
 <template>
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
-        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace" :data-a="index">
+        <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace" :data-a="index" @click="overviewMoveToWorkspace($event, index)">
             <Workspace :workspaceObject="workspace" :index="index"/>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { lsonToJson } from '@liveblocks/core';
+import { mapState } from 'vuex';
     import Workspace from './Workspace.vue'
 
     export default {
@@ -175,6 +176,18 @@
 
                 // this.$el.querySelector('.workspace[data-a="' + this.lastCrate + '"]').style.clipPath = "inset( 0 0 " + scrollModifier + "px 0)"
             },
+            overviewMoveToWorkspace (e, index) {
+                if(!this.uiState.isInOverview) { return }
+
+                let scrollTo = (index + 1) * (window.innerHeight + (40))
+
+                
+                this.$el.scrollTo({
+                    top: scrollTo,
+                })
+                
+                this.$store.commit('toggleWorkspacesOverview')
+            },
             mod(n, m) {
                 return ((n % m) + m) % m;
             }
@@ -183,17 +196,20 @@
 </script>
 
 <style lang="scss">
-
     .overview {
         position: relative;
-        height: auto !important;
-        top: 5rem;
+        max-height: 100vh !important;
         transform: scale(.25);
-        transform-origin: top center 50px;
-        border-radius: 23px;
+        overflow-x: initial !important;
+        overflow-y: initial !important;
+        border-radius: 40px;
+        top: -25vh;
+        transform-origin: center center;
         .workspace {
+            position: relative;
             height: auto !important;
             .space {
+                border-radius: 40px;
                 transition: border-radius .1s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
             &:hover {
@@ -201,19 +217,32 @@
                     border-radius: 40px;
                     box-shadow:inset 0px 0px 0px 10px #f00;
                 }
+                &:after {
+                        position: absolute;
+                        top: -35px;
+                        right: -35px; 
+                        content: '';
+                        display: block;
+                        width: 100px;
+                        height: 100px;
+                        background: red;
+                        border-radius: 50%;
+                        z-index: 10000;
+                    }
             }
         }
 
     }
     .workspaces {
+        position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
         width: 100vw;
         max-width: 100vw;
         scroll-behavior: smooth;
         height: 100vh;
-        transition: .25s; 
-        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+        transition: .4s; 
+        animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
         
         display: flex;
         flex-direction: column;

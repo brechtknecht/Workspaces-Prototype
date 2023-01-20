@@ -5,12 +5,12 @@
 <style lang="scss">  
     body {
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #000;
+        background: url('/assets/macOS-Overlay-Background.png');
         width: 100%;
         height: 100vh;
         width: 100vw;
         max-width: 100vw;
-        overflow: hidden !important;
+        overflow: clip !important;
 
         -webkit-user-select: none; /* Safari */        
         -moz-user-select: none; /* Firefox */
@@ -20,7 +20,7 @@
     }
 
     html {
-      overflow: hidden;
+      overflow: clip;
       -webkit-user-select: none; /* Safari */        
       -moz-user-select: none; /* Firefox */
       -ms-user-select: none; /* IE10+/Edge */
@@ -43,7 +43,7 @@
     }
 
     #app {
-      overflow: hidden;
+      overflow-y: scroll;
       max-height: 100vh !important;
     }
 
