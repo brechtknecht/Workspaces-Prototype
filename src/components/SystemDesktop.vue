@@ -182,7 +182,29 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+    .overview {
+        position: relative;
+        height: auto !important;
+        top: 5rem;
+        transform: scale(.25);
+        transform-origin: top center 50px;
+        border-radius: 23px;
+        .workspace {
+            height: auto !important;
+            .space {
+                transition: border-radius .1s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            &:hover {
+                .space {
+                    border-radius: 40px;
+                    box-shadow:inset 0px 0px 0px 10px #f00;
+                }
+            }
+        }
+
+    }
     .workspaces {
         overflow-y: scroll;
         overflow-x: hidden;

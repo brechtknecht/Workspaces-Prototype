@@ -2,7 +2,7 @@
   <router-view />
 </template>
 
-<style lang="scss" scoped>  
+<style lang="scss">  
     body {
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         background: #000;
@@ -10,7 +10,7 @@
         height: 100vh;
         width: 100vw;
         max-width: 100vw;
-        overflow: hidden;
+        overflow: hidden !important;
 
         -webkit-user-select: none; /* Safari */        
         -moz-user-select: none; /* Firefox */
@@ -44,6 +44,7 @@
 
     #app {
       overflow: hidden;
+      max-height: 100vh !important;
     }
 
     
