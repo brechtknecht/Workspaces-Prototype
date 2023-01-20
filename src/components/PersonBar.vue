@@ -39,7 +39,7 @@ export default {
     ul {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: .5rem;
         padding: 0;
         margin: 0;
     }
@@ -61,10 +61,10 @@ export default {
 
             background: rgba(255,255,255, .4);
             border: .5px solid rgba(255,255,255, .4);
-            border-radius: 28px;
-            padding: 1rem;
+            border-radius: 24px;
+            padding: .5rem;
 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(32px);
             &.forceOut {
                 transform: translateX(0) !important;
             }

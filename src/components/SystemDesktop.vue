@@ -1,7 +1,7 @@
 <template>
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
         <div v-for="(workspace, index) in workspaces" :key="workspace.id" class="workspace" :data-a="index">
-            <Workspace :workspace="workspace" :index="index"/>
+            <Workspace :workspaceObject="workspace" :index="index"/>
         </div>
     </div>
 </template>

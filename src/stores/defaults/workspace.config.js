@@ -1,18 +1,27 @@
+import persons from './person.config'
+
+
+let workspace1 = persons.filter(person => {
+    return person.workspaces.find(workspace => workspace == '0227-4a90')
+})
+
+let workspace2 = persons.filter(person => {
+    return person.workspaces.find(workspace => workspace == 'e272-4423')
+})
+
+let workspace3 = persons.filter(person => {
+    return person.workspaces.find(workspace => workspace == '66ef-466a')
+})
+
+
+
 // workspace: {
 export default [ 
     {
         properties: {
             title: "Design Workspace",
-            members: [
-                {
-                    name: 'Martin',
-                    image: 'https://images.pexels.com/photos/4029925/pexels-photo-4029925.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                },
-                {
-                    name: 'Peter',
-                    image: 'https://images.pexels.com/photos/5794559/pexels-photo-5794559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                }
-            ],
+            id: "0227-4a90",
+            members: workspace1,
             spaces: [
                 {
                     id: '9375-11ed-a1eb',
@@ -74,17 +83,9 @@ export default [
     },
     {
         properties: {
+            id: "e272-4423",
             title: "Development Workspace",
-            members: [
-                {
-                    name: 'Jessica',
-                    image: 'https://www.pexels.com/photo/woman-wearing-black-glasses-and-white-shirt-936610/'
-                },
-                {
-                    name: 'John',
-                    image: 'https://www.pexels.com/photo/man-wearing-black-frame-eyeglasses-2108706/'
-                }
-            ],
+            members: workspace2,
             spaces: [
                 {
                     id: '9875-11ed-b1eb',
@@ -143,17 +144,9 @@ export default [
     },
     {
         properties: {
-            title: "Collaboration Workspace",
-            members: [
-                {
-                    name: 'Emily',
-                    image: 'https://www.pexels.com/photo/woman-wearing-white-and-black-striped-shirt-226547/'
-                },
-                {
-                    name: 'David',
-                    image: 'https://www.pexels.com/photo/man-in-black-frame-eyeglasses-3255448/'
-                }
-            ],
+            title: "Review Workspace",
+            id: '66ef-466a',
+            members: workspace3,
             spaces: [
                 {
                     id: '5674-11ed-c1eb',

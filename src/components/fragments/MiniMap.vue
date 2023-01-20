@@ -30,11 +30,13 @@ export default {
         display: flex;
         flex-direction: column;
         gap: .5rem;
-        background: rgba(255,255,255, .15);
         border: .5px solid rgba(255,255,255, .4);
+        background: rgba(255,255,255, .25);
         border-radius: 12px;
         padding: .5rem;
         backdrop-filter: blur(4px);
+
+        z-index: 100;
         .minimap-workspace {
             display: flex;
             gap: .5rem;

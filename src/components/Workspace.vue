@@ -1,6 +1,6 @@
 <template>
     <div class="spaces-wrapper">
-        <div v-for="(space, index) in workspace.properties.spaces" :key="space.title" class="space" :data-a="index">
+        <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :data-a="index">
             <span>{{message}}</span>
             <window-manager :windows="space.windows" />
         </div>
@@ -27,6 +27,8 @@
     export default {
         data() {
             return {
+                index: 0,
+
                 users: [],
 
                 lastCrate: 0,
@@ -55,18 +57,19 @@
         },
         computed: {
             ...mapState([
+                'workspace',
                 'workspaces',
                 'uiState'
             ]),
             numberOfWorkspaces: function () {
-                return this.workspace.properties.spaces.length
+                return this.workspaceObject.properties.spaces.length
             },
             roomId () {
-                return this.workspace.properties.multiplayer.roomId
+                return this.workspaceObject.properties.multiplayer.roomId
             }
         },
         props: {
-            workspace: Object
+            workspaceObject: Object
         },
         mounted() {
             this.initLiveblocks();
@@ -76,10 +79,11 @@
                 // When scrolling, force the toobar to be out
                 this.$store.commit('showPersonBar', 'infinite')
 
+
                 clearTimeout(this.scrollTimeout);
                 clearTimeout(this.touchEndTimeout);
                 this.scrollTimeout = setTimeout(() => {
-                    // console.log("Scrolling has stopped.");
+                    console.log("Scrolling has stopped.");
                     this.handleScroll(e)
                 }, 100);
             });
@@ -125,8 +129,9 @@
                 let intersectionIndex = entries.target.attributes["data-a"].value
                 this.currentSpace = intersectionIndex
                 this.lastCrate = parseInt(intersectionIndex)
-
-                this.$store.commit('setCurrentSpace', this.currentSpace)
+                const state = {currentWorkspace : this.workspace.currentInt, currentSpace: this.currentSpace}
+    
+                this.$store.commit('setCurrentWorkspaceArray', state)
             },
             handleWheel(event) {
                 if (event.deltaX > 0) {

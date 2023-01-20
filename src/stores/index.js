@@ -15,7 +15,7 @@ const store = createStore({
         currentInt: 0,
       },
       space: {
-        currentInt: 0
+        currentArray: []
       },
       workspaces: WorkspaceDefaults,
       uiState : {
@@ -29,8 +29,8 @@ const store = createStore({
     setCurrentWorkspace (state, payload) {
       state.workspace.currentInt = payload
     },
-    setCurrentSpace(state, payload) {
-      state.space.currentInt = payload
+    setCurrentWorkspaceArray(state, payload) {
+      state.space.currentArray[payload.currentWorkspace] = payload.currentSpace
     },
     toggleWorkspacesOverview(state) {
       state.uiState.isInOverview = !state.uiState.isInOverview
