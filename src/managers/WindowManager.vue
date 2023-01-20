@@ -15,7 +15,9 @@
             <div class="resize-handle resize-handle-top-right"></div>
             <div class="resize-handle resize-handle-bottom-left"></div>
             <div class="resize-handle resize-handle-bottom-right"   @mousedown="startResize('bottom-right')"></div>
-            <div class="window-header drag-handle" @mousedown="startDrag(index)"></div>
+            <div class="window-header drag-handle" @mousedown="startDrag(index)">
+                {{  window.id }}
+            </div>
             <div class="window-content">
             <!-- Your window content here -->
             <window :properties="window" />
@@ -56,6 +58,7 @@
                 this.offsetY = event.clientY;
                 this.$refs.container.addEventListener("mousemove", this.onMouseMoveResize);
                 this.$refs.container.addEventListener("mouseup", this.stopResize);
+                this.$store.commit('disableSidebar', true)
             },
             onMouseMoveResize(e) {
                 console.log("Resizing")
@@ -91,6 +94,7 @@
                 this.resizingEdge = null;
                 this.$refs.container.removeEventListener("mousemove", this.onMouseMoveResize);
                 this.$refs.container.removeEventListener("mouseup", this.stopResize);
+                this.$store.commit('disableSidebar', false)
             },
 
             /* DRAGGING */
@@ -161,7 +165,7 @@
         position: absolute;
         width: 10px;
         height: 10px;
-        background-color: #ccc;
+        // background-color: #ccc;
         z-index: 1000;
     }
 
@@ -219,6 +223,9 @@
 
     .drag-handle, .window-header {
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: calc(100%);
         left: 0;
         top: 0;

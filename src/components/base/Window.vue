@@ -1,8 +1,15 @@
 <template>
     <div ref="window" @mousedown="startDrag" class="window-inner" :id="properties.id">
-        <!-- {{ this.properties }}         -->
         <div v-if="this.properties.iframe">
-            <!-- <iframe :src="this.proxyUrl" width="100%" height="100%"></iframe> -->
+            <iframe :src="this.properties.iframe.url" width="100%" height="100%"></iframe>
+        </div>
+        <div v-else-if="this.properties.imageURL">
+            <div class="background-window">
+                test
+            </div>
+        </div>
+        <div v-else>
+            {{ this.properties }}
         </div>
     </div>
 </template>

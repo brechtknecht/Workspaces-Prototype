@@ -1,6 +1,6 @@
 <template>
     <div class="spaces-wrapper">
-        <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :data-a="index">
+        <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :id="index" :data-a="index">
             <span>{{message}}</span>
             <window-manager :windows="space.windows" />
         </div>
@@ -69,7 +69,8 @@
             }
         },
         props: {
-            workspaceObject: Object
+            workspaceObject: Object,
+            workspaceIndex: Number
         },
         mounted() {
             this.initLiveblocks();
@@ -140,29 +141,36 @@
                 }
             },
             moveTrailing () {
-                let upperScrollPos = 0
+                let element
                 if(this.lastCrate > 0) {
-                    upperScrollPos = this.$el.children[this.lastCrate - 1].offsetLeft;
-                    console.log(upperScrollPos)
+                    element = this.$el.querySelector(`[id='${this.lastCrate - 1}']`)
+                } else {
+                    element = this.$el.querySelector(`[id=0']`)
                 }
             
                 this.$el.scrollTo({
-                    left: upperScrollPos,
+                    left: element.offsetLeft,
                     behavior: 'smooth'
                 })
+                console.log("SPACE:", element.id)
 
                 this.$store.commit('showPersonBar', 1500)
             },
             moveLeading() {
-                let upperScrollPos = 0
+                let element;
                 if(this.lastCrate < this.numberOfWorkspaces) {
-                    upperScrollPos = this.$el.children[this.lastCrate + 1].offsetLeft;
+                    element = this.$el.querySelector(`[id='${this.lastCrate + 1}']`)
+                } else {
+                    element = this.$el.querySelector(`[id='${this.numberOfWorkspaces}']`)
                 }
 
                 this.$el.scrollTo({
-                    left: upperScrollPos,
+                    left: element.offsetLeft,
                     behavior: 'smooth'
                 })
+
+                let spacePosition = {workspacePosition: this.workspaceIndex, spacePosition: element.id}
+                this.$store.commit('setSpacePosition', spacePosition)
 
                 this.$store.commit('showPersonBar', 1500)
             },
@@ -219,7 +227,7 @@
                 })
 
                 // When scrolling is finished, hide the toolbar again
-                this.$store.commit('hidePersonBarWithDelay', 1500)
+                this.$store.commit('hidePersonBarWithDelay', 3500)
 
 
             },

@@ -3,7 +3,7 @@
         <div v-for="(workspace, index) in workspaces" :key="workspace.id" :id="index" class="workspace"
             :class="{private : workspace.properties.type == 'Private' ? true: false}" :data-a="index"
             @click="overviewMoveToWorkspace($event, index)">
-            <Workspace :workspaceObject="workspace" :index="index" />
+            <Workspace :workspaceObject="workspace" :workspaceIndex="index" />
         </div>
     </div>
 </template>
@@ -76,6 +76,8 @@
             for (let workspace of workspaces) {
                 this.observer.observe(workspace)
             }
+
+            this.initSpacePositions()
         },
         destroyed() {
             this.$el.removeEventListener('scroll', this.handleScroll);
@@ -94,26 +96,30 @@
                 }
             },
             moveUp() {
-                let offset = 0
+                let element;
                 if (this.lastCrate > 0) {
-                    offset = this.$el.querySelector(`[id='${this.lastCrate - 1}']`).offsetTop
+                    element = this.$el.querySelector(`[id='${this.lastCrate - 1}']`)
+                } else {
+                    element = this.$el.querySelector(`[id='${this.numberOfWorkspaces }']`)
                 }
 
                 this.$el.scrollTo({
-                    top: offset,
+                    top: element.offsetTop,
                     behavior: 'smooth'
                 })
 
                 this.$store.commit('showPersonBar', 3500)
             },
             moveDown() {
-                let offset = 0
+                let element;
                 if (this.lastCrate < this.numberOfWorkspaces) {
-                    offset = this.$el.querySelector(`[id='${this.lastCrate + 1}']`).offsetTop
+                    element = this.$el.querySelector(`[id='${this.lastCrate + 1}']`)
+                } else {
+                    element = this.$el.querySelector(`[id=0']`)
                 }
 
                 this.$el.scrollTo({
-                    top: offset,
+                    top: element.offsetTop,
                     behavior: 'smooth'
                 })
 
@@ -194,6 +200,14 @@
                 })
 
                 this.$store.commit('toggleWorkspacesOverview')
+            },
+            initSpacePositions() {
+                let coordinates = []
+                this.workspaces.forEach((workspace, i) => {
+                    coordinates.push(0)
+                })
+
+                this.$store.commit('initSpacePosition', coordinates)
             },
             mod(n, m) {
                 return ((n % m) + m) % m;

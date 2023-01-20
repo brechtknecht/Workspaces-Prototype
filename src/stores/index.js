@@ -21,7 +21,8 @@ const store = createStore({
       uiState : {
         isInOverview: false,
         personBarForcedOut: false,
-        personBarDisabled:false
+        personBarDisabled: false,
+        spaceCoordinates: Array
       }
     }
   },
@@ -34,6 +35,13 @@ const store = createStore({
     },
     toggleWorkspacesOverview(state) {
       state.uiState.isInOverview = !state.uiState.isInOverview
+    },
+    initSpacePosition(state, payload) {
+      state.uiState.spaceCoordinates = payload
+    },
+    setSpacePosition(state, payload) {
+      console.log("STOREDEBUG", payload)
+      state.uiState.spaceCoordinates[payload.workspacePosition] = payload.spacePosition
     },
     disableSidebar(state, isDisabled) {
       state.uiState.personBarDisabled = isDisabled

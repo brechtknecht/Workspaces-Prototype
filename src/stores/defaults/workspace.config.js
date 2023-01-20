@@ -51,7 +51,7 @@ export default [
                     id: '9375-11ed-a1eb',
                     windows: [
                         {
-                            id: 'Figma',
+                            id: 'Google Docs',
                             frame: {
                                 width: 720,
                                 height: 440,
@@ -59,16 +59,19 @@ export default [
                                 y: 50
                             },
                             iframe: {
-                                url: 'https://portfolio.fjal.fi'
+                                url: 'http://localhost:3000/?url=docs.google.com/document/d/1E8OogkgLkUjtu6ANC7x8eh1FSFVeRn4_0rIeI_auFRo/edit?usp=sharing'
                             }
                         },
                         {
-                            id: 'Miro',
+                            id: 'Figma',
                             frame: {
                                 width: 460,
                                 height: 330,
                                 x: 400,
                                 y: 300
+                            },
+                            iframe: {
+                                url: 'http://localhost:3000/?url=figma.com'
                             }
                         }
                     ]  
@@ -77,21 +80,15 @@ export default [
                     id: '9376-11ed-a1eb',
                     windows: [
                         {
-                            id: 'Google Docs',
+                            id: 'Figma',
                             frame: {
-                                width: 720,
+                                width: 800,
                                 height: 640,
-                                x: 120,
+                                x: 0,
                                 y: 50
-                            }
-                        },
-                        {
-                            id: 'Miro',
-                            frame: {
-                                width: 460,
-                                height: 330,
-                                x: 400,
-                                y: 300
+                            },
+                            iframe: {
+                                url: 'http://localhost:3000/?url=developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align'
                             }
                         }
                     ]  
