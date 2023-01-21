@@ -2,13 +2,18 @@
     <Transition name="fade">
     <div v-if="currentWorkspace.properties.members">
         <div v-if="!uiState.personBarDisabled" class="person-bar">
-            <div class="person-bar-wrapper" :class={forceOut:isForcedOut}>
+            <Transition name="fade">
+            <div class="person-bar-wrapper forceOut" 
+                @mouseover="startHover"
+                @mouseleave="endHover"
+            >
                 <transition-group name="list" tag="ul">
                     <div v-for="(member, index) in currentWorkspace.properties.members" v-bind:key="member.name" class="list-complete-item">
-                        <Person :person="member"/>
+                        <Person :person="member" :isHovered="this.isHovered"/>
                     </div>
                 </transition-group>
             </div>
+        </Transition>
         </div>
     </div>
 </Transition>
@@ -35,6 +40,19 @@ export default {
         isForcedOut (){
             return this.uiState.personBarForcedOut
         }
+    },
+    data() {
+        return {
+            isHovered: false
+        }
+    },
+    methods : {
+        startHover () {
+            this.isHovered = true
+        },
+        endHover () {
+            this.isHovered = false
+        }
     }
 }
 </script>
@@ -46,6 +64,7 @@ export default {
         gap: .5rem;
         padding: 0;
         margin: 0;
+        transition: all 2500ms ease;
     }
 
     .person-bar {
@@ -59,14 +78,17 @@ export default {
         z-index: 100000;
 
         .person-bar-wrapper {
-            transition: 250ms; 
-            animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
-            transform: translateX(110%);
+            transform: translateX(130%);
+
+            min-height: 100%;
+            max-height: 2000px;
 
             background: rgba(255,255,255, .4);
             border: .5px solid rgba(255,255,255, .4);
             border-radius: 24px;
             padding: .5rem;
+
+            transition: max-height 2500ms ease;
 
             backdrop-filter: blur(32px);
             &.forceOut {
@@ -89,10 +111,12 @@ export default {
 
     .list-enter-from{
         opacity: 0;
+        transition: all 0.5s ease;
         transform: translateY(5rem);
     }
 
     .list-leave-to {
+        transform: translateY(0);
         opacity: 0;
     }
 

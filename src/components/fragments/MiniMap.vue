@@ -43,7 +43,7 @@ export default {
     .minimap {
         position: fixed;
         bottom: 1.5rem;
-        right: 1.5rem;
+        left: 1.5rem;
         display: flex;
         flex-direction: column;
         gap: .25rem;

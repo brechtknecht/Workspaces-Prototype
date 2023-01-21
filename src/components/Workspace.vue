@@ -79,9 +79,7 @@
 
             this.$el.addEventListener("wheel", (e) => {
 
-                // When scrolling, force the toobar to be out
-                this.$store.commit('showPersonBar', 'infinite')
-
+                console.log("scrolling")
 
                 clearTimeout(this.scrollTimeout);
                 clearTimeout(this.touchEndTimeout);

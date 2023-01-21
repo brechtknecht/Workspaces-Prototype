@@ -22,7 +22,8 @@ const store = createStore({
         isInOverview: false,
         personBarForcedOut: false,
         personBarDisabled: false,
-        spaceCoordinates: Array
+        spaceCoordinates: Array,
+        personBarActive: false
       }
     }
   },
@@ -47,16 +48,22 @@ const store = createStore({
       state.uiState.personBarDisabled = isDisabled
     },
     hidePersonBarWithDelay(state, time) {
+      if(state.uiState.personBarActive.personBarActive) { return }
+      state.uiState.personBarForcedOut = true
       setTimeout(function() {
         state.uiState.personBarForcedOut = false
       }, time);
     },
     showPersonBar(state, time) {
       state.uiState.personBarForcedOut = true
+      if(state.uiState.personBarActive.personBarActive) { return }
       // If the time is infinite, force the person bar to stay out
+      state.uiState.personBarActive = true
       if(time == 'infinite') { return; }
 
+
       setTimeout(function() {
+        state.uiState.personBarActive = true
         state.uiState.personBarForcedOut = false
       }, time);
     }
