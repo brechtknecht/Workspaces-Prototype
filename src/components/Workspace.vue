@@ -1,5 +1,8 @@
 <template>
     <div class="spaces-wrapper">
+        <div v-if="multiplayer">
+            <multiplayer/>
+        </div>
         <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :id="index" :data-a="index">
             <span>{{message}}</span>
             <window-manager :windows="space.windows" />
@@ -12,6 +15,8 @@
         mapState
     } from 'vuex';
     import WindowManager from '../managers/WindowManager.vue'
+
+    import Multiplayer from '../components/fragments/Multiplayer.vue'
 
     import {
         createClient
@@ -54,7 +59,8 @@
             }
         },
         components: {
-            WindowManager
+            WindowManager,
+            Multiplayer
         },
         computed: {
             ...mapState([

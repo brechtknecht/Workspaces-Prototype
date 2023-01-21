@@ -66,6 +66,17 @@ const store = createStore({
         state.uiState.personBarActive = true
         state.uiState.personBarForcedOut = false
       }, time);
+    },
+    updateWorkspace(state, payload) {
+      let updatedWorkspaces = state.workspaces.map(workspace => {
+        
+        if(workspace.properties.id == payload.properties.id) {
+          return payload
+        }
+        return workspace
+      })
+  
+      state.workspaces = updatedWorkspaces
     }
   }
 })

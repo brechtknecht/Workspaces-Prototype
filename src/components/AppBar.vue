@@ -27,7 +27,7 @@
                             <current-workspace :workspace="workspaces[workspace.currentInt]" />
                         </div>
                         <div v-if="showWorkspaceOptions" class="workspace-options-wrapper">
-                            <workspace-options />
+                            <workspace-options :workspace="workspaces[workspace.currentInt]"/>
                         </div>
                     </div>
                 </Transition>
