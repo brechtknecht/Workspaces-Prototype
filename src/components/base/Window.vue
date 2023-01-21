@@ -1,7 +1,7 @@
 <template>
     <div ref="window" @mousedown="startDrag" class="window-inner" :id="properties.id">
         <div v-if="this.properties.iframe">
-            <iframe :src="this.properties.iframe.url" width="100%" height="100%"></iframe>
+            <iframe ref="iframe" class="iframe" :src="this.properties.iframe.url" width="100%" height="100%" v-on:wheel.prevent="onChildWheel"></iframe>
         </div>
         <div v-else-if="this.properties.imageURL">
             <div class="background-window">
@@ -54,6 +54,7 @@ export default {
     
     iframe {
         border: 0;
+        pointer-events: none;
     }
 
  

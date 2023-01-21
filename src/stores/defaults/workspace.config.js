@@ -98,7 +98,18 @@ export default [
                 roomId: '88b0fca8',
                 isMultiplayerSession: false,
                 attendants: [],
-                multiplayerWindows: []
+                multiplayerWindows: [
+                    {
+                        id: 'Shared Document',
+                        sharedBy: 'keys-m34s',
+                        frame: {
+                            width: 460,
+                            height: 330,
+                            x: 400,
+                            y: 100
+                        }
+                    }
+                ]
             }
         }
     },

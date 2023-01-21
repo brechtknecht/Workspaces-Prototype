@@ -1,6 +1,6 @@
 <template>
     <Transition name="fade">
-        <div class="person-wrapper">
+        <div class="person-wrapper" :class="{window: location == 'window'}">
             <div class="person" refs="myDraggable">
                 <div class="image" :style="{
                     'background': 'url(' + this.person.image + ')',
@@ -19,7 +19,8 @@
 export default {
     props: {
         person: Object,
-        isHovered: Boolean
+        isHovered: Boolean,
+        location: String
     }
 }
 </script>

@@ -2,7 +2,7 @@
     <div class="workspaces" :class="{ overview: uiState.isInOverview }" @wheel="handleWheel">
         <div v-for="(workspace, index) in workspaces" :key="workspace.id" :id="index" class="workspace"
             :class="{private : workspace.properties.type == 'Private' ? true: false}" :data-a="index"
-            @click="overviewMoveToWorkspace($event, index)">
+            @click="overviewMoveToWorkspace($event, index)">         
             <Workspace :workspaceObject="workspace" :workspaceIndex="index" />
         </div>
     </div>

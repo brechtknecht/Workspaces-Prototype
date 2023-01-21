@@ -3,13 +3,16 @@ import { createStore } from 'vuex'
 import Vuex from 'vuex'
 
 import WorkspaceDefaults from './defaults/workspace.config'
+import Persons from './defaults/person.config'
+
+import UserDefaults from './defaults/userDefaults.config'
 
 // Create a new store instance.
 const store = createStore({
   state () {
     return {
       user: {
-        name: 'Felix'
+        UserDefaults
       },
       workspace: {
         currentInt: 0,
@@ -17,6 +20,7 @@ const store = createStore({
       space: {
         currentArray: []
       },
+      persons: Persons,
       workspaces: WorkspaceDefaults,
       uiState : {
         isInOverview: false,
@@ -69,7 +73,7 @@ const store = createStore({
     },
     updateWorkspace(state, payload) {
       let updatedWorkspaces = state.workspaces.map(workspace => {
-        
+      
         if(workspace.properties.id == payload.properties.id) {
           return payload
         }

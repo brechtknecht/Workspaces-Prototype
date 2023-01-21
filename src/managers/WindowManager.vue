@@ -1,12 +1,21 @@
 <template>
-    <div ref="container" style="height: 100vh; width: 100vw; position: relative" class="window-manager">
+    <div ref="container" style="height: 100vh; width: 100vw; position: relative" class="window-manager" >
         <div v-for="(window, index) in windows" :key="index" class="window-wrapper" ref="window" :style="{
                 'left': window.frame.x + 'px',
                 'top' : window.frame.y + 'px',
                 'width' : window.frame.width + 'px',
                 'height' : window.frame.height + 'px'
             }">
-            <!-- content of the window goes here -->
+            
+            <!-- Person sharing is going here -->
+            <div class="sharedBy-wrapper" v-if="window.sharedBy"> 
+                <div class="sharedBy">
+                    <span>shared By</span>
+                    <person :person="resolveSharedBy(window.sharedBy)" :isHovered="true" location="window"/>
+                </div>
+            </div>
+
+
             <div class="resize-handle resize-handle-top"            @mousedown="startResize('top')"></div>
             <div class="resize-handle resize-handle-bottom"         @mousedown="startResize('bottom')"></div>
             <div class="resize-handle resize-handle-left"></div>
@@ -20,7 +29,7 @@
             </div>
             <div class="window-content">
             <!-- Your window content here -->
-            <window :properties="window" />
+            <window :properties="window"/>
             </div>
         </div>
     </div>
@@ -31,6 +40,8 @@
     import {
         mapState
     } from 'vuex';
+
+    import Person from '../components/base/Person.vue'
 
     import Window from '../components/base/Window.vue'
 
@@ -46,7 +57,13 @@
             windows: {}
         },
         components: {
-            Window
+            Window,
+            Person
+        },
+        computed: {
+            ...mapState([
+                'persons',
+            ]),
         },
         methods: {
             /* RESIZING */
@@ -137,6 +154,13 @@
 
                 this.$store.commit('disableSidebar', false)
             },
+            resolveSharedBy(personID) {
+                return this.persons.find(person => {
+                    if(person.id == personID) {
+                        return person
+                    }
+                })
+            }
         },
     };
 </script>
@@ -236,4 +260,33 @@
     .window-manager {
         margin-top: 6.5rem;
     }
+
+
+    .sharedBy-wrapper {
+            position: relative;
+            top: 0;
+            border: 0;
+            right: 0;
+            width: 100%;
+            z-index: 10000;
+            .sharedBy {
+                position: absolute;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                top: -3.5rem;
+                right: -5px;
+                border-radius: 12px;
+                .person {
+                    height: 1.25rem;
+                    border-radius: 12px;
+                    .image {
+                        width: 16px;
+                        height: 16px;
+                        border-width: 2px !important;
+                    }
+                }
+            }
+        }
 </style>

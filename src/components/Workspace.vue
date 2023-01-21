@@ -1,10 +1,11 @@
 <template>
     <div class="spaces-wrapper">
-        <div v-if="multiplayer">
-            <multiplayer/>
+        <!-- Instanciate Multiplayer Stage if activated -->
+        <div v-if="workspaceObject.properties.multiplayer?.isMultiplayerSession" class="multiplayer">
+            <span>{{message}}</span>
+            <window-manager :windows="workspaceObject.properties.multiplayer.multiplayerWindows"/>
         </div>
         <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :id="index" :data-a="index">
-            <span>{{message}}</span>
             <window-manager :windows="space.windows" />
         </div>
     </div>
@@ -287,6 +288,12 @@
         .space:not(:last-child) {
             margin-right: 40px;
         }
+    }
+
+    .multiplayer {
+        background: url('/assets/macOS-Background.png');
+        margin-right: 40px;
+        box-shadow:inset 0px 0px 0px 6px #f00;
     }
 
     .window {
