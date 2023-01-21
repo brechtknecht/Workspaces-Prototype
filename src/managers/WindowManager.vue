@@ -24,8 +24,18 @@
             <div class="resize-handle resize-handle-top-right"></div>
             <div class="resize-handle resize-handle-bottom-left"></div>
             <div class="resize-handle resize-handle-bottom-right"   @mousedown="startResize('bottom-right')"></div>
+            
+
             <div class="window-header drag-handle" @mousedown="startDrag(index)">
-                {{  window.id }}
+                <div class="window-title">{{  window.id }}</div>
+
+                <!-- Only show livestage push when the window is not yet published and a multiplayer session is running -->
+                <div class="livestage-push" 
+                    v-if="workspace.properties.multiplayer?.isMultiplayerSession && !window.sharedBy"
+                    @click="shareWindow(window)"    
+                >
+                    Share to Multiplayer Alla
+                </div>
             </div>
             <div class="window-content">
             <!-- Your window content here -->
@@ -54,7 +64,8 @@
             };
         },
         props: {
-            windows: {}
+            windows: {},
+            workspace: Object
         },
         components: {
             Window,
@@ -62,10 +73,17 @@
         },
         computed: {
             ...mapState([
+                'UserDefaults',
                 'persons',
             ]),
         },
         methods: {
+            shareWindow(window) {
+                window.sharedBy = this.UserDefaults.UserDefaults.id
+                console.log("Window Shared by me", window.sharedBy)
+                this.workspace.properties.multiplayer.multiplayerWindows.push(window)
+                this.$store.commit('updateWorkspace', this.workspace)
+            },
             /* RESIZING */
             startResize(edge) {
                 console.log("Start Resize")
@@ -155,11 +173,16 @@
                 this.$store.commit('disableSidebar', false)
             },
             resolveSharedBy(personID) {
-                return this.persons.find(person => {
+                console.log("Resolve Shared by:", personID)
+                let person = this.persons.find(person => {
                     if(person.id == personID) {
                         return person
+                    } else {
+                        return this.UserDefaults.UserDefaults
                     }
                 })
+                console.log(person)
+                return person
             }
         },
     };
@@ -254,7 +277,11 @@
         left: 0;
         top: 0;
         height: 1.75rem;
-        background: rgba(0,0,0,.05)
+        background: rgba(0,0,0,.05);
+    }
+
+    .livestage-push {
+        background: red !important;
     }
 
     .window-manager {

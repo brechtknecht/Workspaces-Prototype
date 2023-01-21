@@ -11,7 +11,7 @@ import UserDefaults from './defaults/userDefaults.config'
 const store = createStore({
   state () {
     return {
-      user: {
+      UserDefaults: {
         UserDefaults
       },
       workspace: {

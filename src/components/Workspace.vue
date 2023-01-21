@@ -3,10 +3,16 @@
         <!-- Instanciate Multiplayer Stage if activated -->
         <div v-if="workspaceObject.properties.multiplayer?.isMultiplayerSession" class="multiplayer">
             <span>{{message}}</span>
-            <window-manager :windows="workspaceObject.properties.multiplayer.multiplayerWindows"/>
+            <window-manager 
+                :windows="workspaceObject.properties.multiplayer.multiplayerWindows" 
+                :workspace="workspaceObject"
+            />
         </div>
         <div v-for="(space, index) in workspaceObject.properties.spaces" :key="space.title" class="space" :id="index" :data-a="index">
-            <window-manager :windows="space.windows" />
+            <window-manager 
+                :windows="space.windows" 
+                :workspace="workspaceObject"
+            />
         </div>
     </div>
 </template>
