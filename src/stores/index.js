@@ -42,7 +42,7 @@ const store = createStore({
     },
     setSpacePosition(state, payload) {
       console.log("STOREDEBUG", payload)
-      state.uiState.spaceCoordinates[payload.workspacePosition] = payload.spacePosition
+      state.uiState.spaceCoordinates = payload
     },
     disableSidebar(state, isDisabled) {
       state.uiState.personBarDisabled = isDisabled

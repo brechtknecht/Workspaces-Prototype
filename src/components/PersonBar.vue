@@ -2,7 +2,6 @@
     <Transition name="fade">
     <div v-if="currentWorkspace.properties.members">
         <div v-if="!uiState.personBarDisabled" class="person-bar">
-            <Transition name="fade">
             <div class="person-bar-wrapper forceOut" 
                 @mouseover="startHover"
                 @mouseleave="endHover"
@@ -13,7 +12,6 @@
                     </div>
                 </transition-group>
             </div>
-        </Transition>
         </div>
     </div>
 </Transition>
@@ -64,7 +62,7 @@ export default {
         gap: .5rem;
         padding: 0;
         margin: 0;
-        transition: all 2500ms ease;
+        transition: all 0.5s ease;
     }
 
     .person-bar {
@@ -72,23 +70,21 @@ export default {
         right: 1rem;
         top: 50%;
         transform: translateY(-50%);
-        transition: 250ms; 
-        animation-timing-function: cubic-bezier(0.5, 6.58, 0.5, -6.58);
+        transition: all 0.5s ease;
 
         z-index: 100000;
 
         .person-bar-wrapper {
+            display: flex;
             transform: translateX(130%);
-
-            min-height: 100%;
-            max-height: 2000px;
 
             background: rgba(255,255,255, .4);
             border: .5px solid rgba(255,255,255, .4);
             border-radius: 24px;
             padding: .5rem;
 
-            transition: max-height 2500ms ease;
+            max-height: 5000px;
+            transition: max-height 0.5s ease-in-out;
 
             backdrop-filter: blur(32px);
             &.forceOut {

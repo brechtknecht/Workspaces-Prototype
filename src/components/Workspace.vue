@@ -43,6 +43,7 @@
                 currentSpace: 0,
                 scrollTimeout: null,
                 touchEndTimeout: null,
+                previousSpace: 0,
 
                 isInOverview: true,
 
@@ -194,7 +195,6 @@
                 this.handleAnimation()
             },
             handleScroll(event) {
-                // Any code to be executed when the window is scrolled
                 this.scrollPosition = this.$el.scrollLeft;
                 this.windowWidth = window.innerWidth
 
@@ -217,6 +217,8 @@
 
                 let closestCorner = this.$el.scrollLeft / this.windowWidth
                 let scrollTo = (Math.round(closestCorner) * (this.windowWidth + (40)))
+
+                this.previousSpace = this.lastCrate
 
                 this.$el.scrollTo({
                     left: scrollTo,
