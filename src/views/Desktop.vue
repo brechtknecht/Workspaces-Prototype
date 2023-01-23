@@ -17,7 +17,7 @@
   })
 
   function handleShortcuts(e) {
-      if (e.shiftKey && e.key === '0') {
+      if (e.shiftKey && e.key === '0' || e.shiftKey && e.key === 'O') {
           store.commit('toggleWorkspacesOverview')
       }
   }
